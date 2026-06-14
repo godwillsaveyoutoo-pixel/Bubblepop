@@ -530,3 +530,79 @@
     height: 74%;
   }
 }
+
+
+/* v46 — center prompt visual properly inside the bubble */
+.prompt-visual-bubble {
+  display: grid;
+  place-items: center;
+}
+.prompt-visual-bubble .choice-bubble-content {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 58%;
+  height: 58%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prompt-visual-bubble .fraction-visual {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.prompt-visual-bubble .visual-piece-wrap {
+  margin: 0 auto;
+}
+.prompt-visual-bubble .visual-bar,
+.prompt-visual-bubble .bar-pieces {
+  width: 88% !important;
+  margin: 0 auto;
+}
+.prompt-visual-bubble .visual-circle,
+.prompt-visual-bubble .circle-pieces {
+  margin: 0 auto;
+}
+@media (max-width: 390px) {
+  .prompt-visual-bubble .choice-bubble-content {
+    width: 55%;
+    height: 55%;
+  }
+  .prompt-visual-bubble .visual-bar,
+  .prompt-visual-bubble .bar-pieces {
+    width: 86% !important;
+  }
+}
+
+
+/* v47 — remove square translucent layer above prompt bubble */
+.prompt-visual-bubble .fraction-visual,
+.prompt-visual-bubble .fraction-visual.large {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  border-radius: 0 !important;
+}
+.prompt-visual-bubble .visual-piece-wrap {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+  width: auto !important;
+  max-width: 100% !important;
+}
+.prompt-visual-bubble .visual-bar,
+.prompt-visual-bubble .bar-pieces,
+.prompt-visual-bubble .visual-circle,
+.prompt-visual-bubble .circle-pieces {
+  justify-self: center;
+  align-self: center;
+}

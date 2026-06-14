@@ -216,3 +216,17 @@ Belangrijke regel: PNG’s mogen geen breuken, tekst of getallen bevatten. De PN
 - visual wordt geschaald binnen de bubble
 - circle/bar visuals passen beter in de opgavebubble
 - dit vervangt de losse platte visual-card bovenaan
+
+
+## v46 — opgavebubble centrering
+- opgavevisual expliciet gecentreerd in het midden van de PNG bubble
+- contentwrapper absoluut gecentreerd
+- bar-visuals iets smaller gemaakt zodat ze optisch centraler zitten
+- circle/bar visuals krijgen auto margins
+
+
+## v47 — prompt square cleanup
+- vierkante semitransparante laag boven de opgavebubble verwijderd
+- fraction-visual achtergrond, border en shadow geforceerd uitgezet in prompt bubbles
+- visual-piece-wrap in prompt bubbles transparant gemaakt
+- alleen de eigenlijke visual blijft zichtbaar in de bubble
