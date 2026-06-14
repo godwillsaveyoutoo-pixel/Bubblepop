@@ -237,3 +237,10 @@ Belangrijke regel: PNG’s mogen geen breuken, tekst of getallen bevatten. De PN
 - de eigenlijke bar/circle tray is terug zichtbaar
 - opgavevisual opnieuw duidelijk zichtbaar in de bubble
 - visuele grootte afgestemd op de opgavebubble
+
+
+## v49 — fill level prompt bubble fix
+- level 2/'maak de breuk' gebruikt nu een echte png-opgavebubble in de titel
+- breuk staat opnieuw netjes gecentreerd in de bubble
+- breukstreep is weer duidelijk zichtbaar
+- de extra zin "Tik precies ... Geen controleknop nodig." is verwijderd

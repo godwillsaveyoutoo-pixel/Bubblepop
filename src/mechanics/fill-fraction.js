@@ -23,13 +23,21 @@
 
     return '' +
       '<section class="question-card fill-card coherent-card bubblepop-card">' +
-        '<h2 class="question-title fill-title">' + BP.Fraction.escapeHtml(question.prompt) + ' ' + BP.Fraction.html(target.numerator, target.denominator) + '</h2>' +
+        '<h2 class="question-title fill-title">' + BP.Fraction.escapeHtml(question.prompt) + ' ' + promptBubbleHtml(target) + '</h2>' +
         '<div class="fill-stage bubble-action-stage" data-fill-stage>' +
           fillGridHtml(question.visual, target) +
         '</div>' +
-        '<p class="mechanic-note" data-fill-note>' + BP.I18n.text('Tik precies {n} {part}. Geen controleknop nodig.', { n: target.numerator, part: BP.I18n.t(target.numerator === 1 ? 'part' : 'parts') }) + '</p>' +
       '</section>' +
       '<div class="feedback ' + feedbackClass + '" data-fill-feedback>' + feedbackText + '</div>';
+  }
+
+
+  function promptBubbleHtml(target) {
+    return '' +
+      '<span class="fill-target-bubble choice-bubble png-choice-bubble">' +
+        BP.Bubble.skinLayer(null, 'normal') +
+        '<span class="choice-bubble-content">' + BP.Fraction.html(target.numerator, target.denominator) + '</span>' +
+      '</span>';
   }
 
   function fillGridHtml(visual, target) {
@@ -62,7 +70,6 @@
   function mount(container, onAnswer, question, roundState, helpers) {
     var stage = container.querySelector('[data-fill-stage]');
     var undoButton = helpers.root.querySelector('[data-action="undo"]');
-    var note = container.querySelector('[data-fill-note]');
     var inputLocked = false;
     selected = [];
     updateUndo();
@@ -87,7 +94,6 @@
         var piece = stage.querySelector('[data-fill-index="' + last + '"]');
         if (piece) piece.classList.remove('filled-by-player', 'just-filled');
         updateUndo();
-        updateNote();
       });
     }
 
@@ -106,7 +112,6 @@
         piece.classList.add('just-filled');
       }
       updateUndo();
-      updateNote();
       maybeComplete();
     }
 
@@ -137,15 +142,5 @@
       if (undoButton) undoButton.disabled = inputLocked || selected.length === 0;
     }
 
-    function updateNote() {
-      if (!note) return;
-      var target = question.target;
-      var remaining = Number(target.numerator) - selected.length;
-      if (remaining > 0) {
-        note.textContent = BP.I18n.text('Nog {n} {part} tikken.', { n: remaining, part: BP.I18n.t(remaining === 1 ? 'part' : 'parts') });
-      } else {
-        note.textContent = BP.I18n.text('Mooi!');
-      }
-    }
   }
 })();
