@@ -13,12 +13,16 @@
   }
 
   function toggle() {
+    if (isLocalFile()) {
+      document.body.classList.toggle('app-fullscreen-fallback');
+      return Promise.resolve();
+    }
     if (document.fullscreenElement) {
       return document.exitFullscreen().catch(function () {
         document.body.classList.remove('app-fullscreen-fallback');
       });
     }
-    if (document.documentElement.requestFullscreen) {
+    if (canUseNativeFullscreen()) {
       return document.documentElement.requestFullscreen().catch(function () {
         document.body.classList.toggle('app-fullscreen-fallback');
       });
@@ -27,6 +31,14 @@
     return Promise.resolve();
   }
 
+
+  function canUseNativeFullscreen() {
+    return !isLocalFile() && !!document.documentElement.requestFullscreen;
+  }
+
+  function isLocalFile() {
+    return window.location && window.location.protocol === 'file:';
+  }
 
   function bindMenuDoubleTap(element) {
     if (!element) return;

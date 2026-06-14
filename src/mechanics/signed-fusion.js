@@ -13,12 +13,12 @@
     var target = question.target;
     return '' +
       '<section class="question-card fusion-card signed-card add-card">' +
-        '<h2 class="question-title fusion-title">' + BP.Fraction.escapeHtml(question.prompt || 'Maak') + ' ' + BP.Fraction.html(target.numerator, target.denominator) + '</h2>' +
+        '<h2 class="question-title fusion-title">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt || 'Maak')) + ' ' + BP.Fraction.html(target.numerator, target.denominator) + '</h2>' +
         '<div class="fusion-arena signed-arena" data-signed-arena>' +
           '<div class="fusion-pool signed-pool" data-signed-pool></div>' +
           '<div class="fusion-conversion-note signed-note" data-signed-note></div>' +
         '</div>' +
-        '<p class="fusion-instruction" data-signed-instruction>Versmelt bubbles. Min-bubbles nemen een stukje weg.</p>' +
+        '<p class="fusion-instruction" data-signed-instruction>' + BP.I18n.text('Versmelt bubbles. Min-bubbles nemen een stukje weg.') + '</p>' +
       '</section>' +
       '<div class="feedback" data-signed-feedback></div>';
   }
@@ -48,7 +48,7 @@
         return '' +
           '<div class="fusion-slot" data-signed-slot="' + slotIndex + '">' +
             '<button class="fusion-piece signed-piece' + (negative ? ' negative-piece' : '') + '" data-piece-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="' + signedAria(piece) + '">' +
-              BP.Bubble.skinImage(null, '', negative ? 'operator' : 'normal') +
+              BP.Bubble.skinImage(null, '', negative ? 'operator' : 'normal', negative ? 'subtract' : null) +
               '<span class="operator-inline-label signed-inline-label">' +
                 (negative ? '<span class="operator-symbol minus-inline">−</span>' : '') +
                 BP.Fraction.html(absNum, piece.denominator) +
@@ -70,13 +70,13 @@
       if (solved || recentlyDragged) return;
       if (!selectedId) {
         selectedId = id;
-        setFeedback('', 'Kies nu een tweede bubble om te versmelten.');
+        setFeedback('', BP.I18n.text('Kies nu een tweede bubble om te versmelten.'));
         renderPool();
         return;
       }
       if (selectedId === id) {
         selectedId = null;
-        setFeedback('', 'Selectie gewist. Kies twee verschillende bubbles.');
+        setFeedback('', BP.I18n.text('Selectie gewist. Kies twee verschillende bubbles.'));
         renderPool();
         return;
       }
@@ -93,7 +93,7 @@
         },
         onMiss: function () {
           markRecentlyDragged();
-          setFeedback('', 'Laat een bubble los boven een andere bubble.');
+          setFeedback('', BP.I18n.text('Laat een bubble los boven een andere bubble.'));
         }
       });
     }
@@ -136,12 +136,12 @@
       var target = question.target;
       if (BP.Fraction.equals(piece, target)) {
         solved = true;
-        setFeedback('good', 'Plop! Je maakte meer dan één.');
+        setFeedback('good', BP.I18n.text('Plop! Je maakte meer dan één.'));
         if (undoButton) undoButton.disabled = true;
         window.setTimeout(function () { onAnswer({ fraction: piece }); }, 360);
         return;
       }
-      setFeedback('', 'Nieuwe bubble: ' + BP.Fraction.text(piece.numerator, piece.denominator) + '. Maak verder of gebruik ↶.');
+      setFeedback('', BP.I18n.text('Nieuwe bubble: {value}. Maak verder of gebruik ↶.', { value: BP.Fraction.text(piece.numerator, piece.denominator) }));
     }
 
     function undoLastMove() {
@@ -150,7 +150,7 @@
       selectedId = null;
       renderPool();
       clearNote();
-      setFeedback('', 'Zet ongedaan. Probeer een andere versmelting.');
+      setFeedback('', BP.I18n.text('Zet ongedaan. Probeer een andere versmelting.'));
     }
 
     function findPieceIndex(id) {

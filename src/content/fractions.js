@@ -10,6 +10,13 @@
       background: "skill.fractions.bg.game",
       bubbleSkin: "bubble.blue.idle",
       operatorBubbleSkin: "bubble.operator.idle",
+      addBubbleSkin: "bubble.add.green",
+      subtractBubbleSkin: "bubble.subtract.red",
+      multiplyBubbleSkin: "bubble.multiply.amber",
+      divideBubbleSkin: "bubble.divide.purple",
+      quantityBubbleSkin: "bubble.quantity.pearl",
+      valueBubbleSkin: "bubble.value.purple",
+      successBubbleSkin: "bubble.success.gold",
       popEffect: "fx.pop.correct"
     },
     levels: [

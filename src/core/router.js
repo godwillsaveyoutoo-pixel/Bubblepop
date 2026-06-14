@@ -23,7 +23,7 @@
 
     var screen = BP.Screens[name];
     if (!screen) {
-      root.innerHTML = '<main class="screen"><div class="screen-inner"><h1>Scherm niet gevonden</h1></div></main>';
+      root.innerHTML = '<main class="screen"><div class="screen-inner"><h1>' + (BP.I18n ? BP.I18n.text('Scherm niet gevonden') : 'Scherm niet gevonden') + '</h1></div></main>';
       currentCleanup = null;
       return;
     }

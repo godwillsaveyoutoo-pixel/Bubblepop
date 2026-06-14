@@ -7,7 +7,7 @@
       var setup = resolveLevel(params.skillId, params.levelId);
       if (!setup.level || !BP.Progress.isLevelUnlocked(setup.pack.id, setup.level.id)) {
         return {
-          html: '<main class="screen"><div class="screen-inner"><h1>Level niet beschikbaar</h1><button class="primary-button" data-action="home">Terug</button></div></main>',
+          html: '<main class="screen"><div class="screen-inner"><h1>' + BP.I18n.t('unavailable') + '</h1><button class="primary-button" data-action="home">' + BP.I18n.t('back') + '</button></div></main>',
           mount: function (root) {
             root.querySelector('[data-action="home"]').addEventListener('click', function () { BP.Router.go('home'); });
           }
@@ -32,12 +32,12 @@
           return missingMechanicHtml(setup.level, question);
         }
         return '' +
-          '<main class="screen game-screen">' +
+          '<main class="screen game-screen" style="' + BP.Theme.styleForPack(setup.pack) + '">' +
             BP.Theme.backgroundHtml(setup.pack) +
             '<div class="screen-inner">' +
               '<header class="game-hud">' +
                 '<button class="icon-button" data-action="levels">←</button>' +
-                '<span class="pill" data-hud-score>Score ' + roundState.score + ' · Streak ' + roundState.streak + '</span>' +
+                '<span class="pill" data-hud-score>' + BP.I18n.t('score') + ' ' + roundState.score + ' · ' + BP.I18n.t('streak') + ' ' + roundState.streak + '</span>' +
                 '<span class="pill">' + (roundState.index + 1) + '/' + roundState.total + '</span>' +
               '</header>' +
               '<div id="mechanic-root">' + mechanic.render(question, roundState) + '</div>' +
@@ -64,16 +64,16 @@
   function missingMechanicHtml(level, question) {
     var mechanicName = (question && question.mechanic) || (level && level.mechanic) || "onbekend";
     return '' +
-      '<main class="screen game-screen">' +
+      '<main class="screen game-screen" style="' + BP.Theme.styleForBackground('skill.fractions.bg.game') + '">' +
         '<div class="screen-inner">' +
           '<header class="game-hud">' +
             '<button class="icon-button" data-action="levels">←</button>' +
-            '<span class="pill">Technische fout</span>' +
+            '<span class="pill">' + BP.I18n.t('technicalError') + '</span>' +
           '</header>' +
           '<section class="question-card">' +
-            '<h2>Mechanic niet geladen</h2>' +
-            '<p class="subtitle">Deze level vraagt om: ' + BP.Fraction.escapeHtml(mechanicName) + '</p>' +
-            '<p class="mechanic-note">Controleer of het juiste script in index.html staat.</p>' +
+            '<h2>' + BP.I18n.t('mechanicNotLoaded') + '</h2>' +
+            '<p class="subtitle">' + BP.I18n.t('mechanicMissing', { name: BP.Fraction.escapeHtml(mechanicName) }) + '</p>' +
+            '<p class="mechanic-note">' + BP.I18n.t('checkScript') + '</p>' +
           '</section>' +
           '<div class="bottom-bar single"><button class="ghost-button" data-action="home">Home</button></div>' +
         '</div>' +
@@ -89,13 +89,13 @@
     if (mechanic && mechanic.supportsUndo) {
       return '' +
         '<div class="bottom-bar">' +
-          '<button class="ghost-button" data-action="home">Home</button>' +
-          '<button class="ghost-button undo-button" data-action="undo" disabled>↶ Ongedaan</button>' +
+          '<button class="ghost-button" data-action="home">' + BP.I18n.t('home') + '</button>' +
+          '<button class="ghost-button undo-button" data-action="undo" disabled>' + BP.I18n.t('undo') + '</button>' +
         '</div>';
     }
     return '' +
       '<div class="bottom-bar single">' +
-        '<button class="ghost-button" data-action="home">Home</button>' +
+        '<button class="ghost-button" data-action="home">' + BP.I18n.t('home') + '</button>' +
       '</div>';
   }
 
@@ -133,7 +133,7 @@
       recordMistake: function (payload) {
         var state = round.mistake(payload).state;
         var hud = root.querySelector('[data-hud-score]');
-        if (hud) hud.textContent = 'Score ' + state.score + ' · Streak ' + state.streak;
+        if (hud) hud.textContent = BP.I18n.t('score') + ' ' + state.score + ' · ' + BP.I18n.t('streak') + ' ' + state.streak;
       }
     });
   }

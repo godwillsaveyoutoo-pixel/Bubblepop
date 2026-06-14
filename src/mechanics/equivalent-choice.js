@@ -9,18 +9,22 @@
 
   function render(question, roundState) {
     var feedbackClass = "";
-    var feedbackText = "Pop de bubble met dezelfde waarde.";
+    var feedbackText = BP.I18n.text("Pop de bubble met dezelfde waarde.");
     if (roundState.lastAnswer) {
       feedbackClass = roundState.lastAnswer.correct ? "good" : "bad";
-      feedbackText = roundState.lastAnswer.correct ? "Plop! Zelfde waarde." : "Nog niet. Vergelijk hoeveel gevuld is.";
+      feedbackText = roundState.lastAnswer.correct ? BP.I18n.text("Plop! Zelfde waarde.") : BP.I18n.text("Nog niet. Vergelijk hoeveel gevuld is.");
     }
 
     return '' +
       '<section class="question-card equivalent-card coherent-card bubblepop-card">' +
-        '<h2 class="question-title">' + BP.Fraction.escapeHtml(question.prompt) + '</h2>' +
-        '<div class="equivalent-target bubble-target-card">' +
-          '<span class="mini-label">Doelbubble</span>' +
-          BP.VisualFraction.html(question.targetVisual, { caption: true, large: false }) +
+        '<h2 class="question-title">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt)) + '</h2>' +
+        '<div class="equivalent-target-shell">' +
+          '<span class="mini-label">' + BP.I18n.t('targetBubble') + '</span>' +
+          '<div class="equivalent-target bubble-target-card choice-bubble visual-choice-bubble target-visual-bubble">' +
+            BP.Bubble.skinLayer(null, 'normal') +
+            '<span class="choice-bubble-shine"></span>' +
+            '<span class="choice-bubble-content">' + BP.VisualFraction.html(question.targetVisual, { caption: true, large: false }) + '</span>' +
+          '</div>' +
         '</div>' +
         '<div class="equivalent-grid equivalent-bubble-grid">' + question.choices.map(function (choice, index) {
           var answerState = "";
@@ -28,7 +32,8 @@
             answerState = roundState.lastAnswer.correct ? " correct popped" : " wrong";
           }
           return '' +
-            '<button class="equivalent-option choice-bubble visual-choice-bubble' + answerState + '" data-choice-index="' + index + '">' +
+            '<button class="equivalent-option choice-bubble visual-choice-bubble png-choice-bubble' + answerState + '" data-choice-index="' + index + '">' +
+              BP.Bubble.skinLayer(null, 'normal') +
               '<span class="choice-bubble-shine"></span>' +
               '<span class="choice-bubble-content">' + BP.VisualFraction.html(choice.visual, { caption: true, large: false }) + '</span>' +
             '</button>';

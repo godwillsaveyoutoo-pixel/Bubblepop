@@ -12,10 +12,10 @@
     var isOrder = question.mode === "order";
     var isMulti = isOrder || question.mode === "multi" || Array.isArray(question.items);
     var feedbackClass = "";
-    var feedbackText = isOrder ? "Sleep de bubbles van klein naar groot op de as." : (isMulti ? "Sleep elke bubble van boven naar haar plaats op de as." : "Sleep de bubble van boven naar de as.");
+    var feedbackText = isOrder ? BP.I18n.text("Sleep de bubbles van klein naar groot op de as.") : (isMulti ? BP.I18n.text("Sleep elke bubble van boven naar haar plaats op de as.") : BP.I18n.text("Sleep de bubble van boven naar de as."));
     if (roundState.lastAnswer) {
       feedbackClass = roundState.lastAnswer.correct ? "good" : "bad";
-      feedbackText = roundState.lastAnswer.correct ? "Plop! Juist op de lijn." : "Nog niet. Probeer opnieuw.";
+      feedbackText = roundState.lastAnswer.correct ? BP.I18n.text("Plop! Juist op de lijn.") : BP.I18n.text("Nog niet. Probeer opnieuw.");
     }
 
     return '' +
@@ -28,15 +28,15 @@
           '</div>' +
           '<div class="number-line-labels"><span>0</span><span>1</span></div>' +
         '</div>' +
-        '<p class="mechanic-note" data-line-note>' + (isOrder ? 'De bubbles starten boven de as. Sleep ze in de juiste volgorde op de lijn.' : (isMulti ? 'De bubbles starten boven de as. Sleep ze op de juiste plek.' : 'De bubble start boven de as. Sleep ze op de juiste plek.')) + '</p>' +
+        '<p class="mechanic-note" data-line-note>' + (isOrder ? BP.I18n.text('De bubbles starten boven de as. Sleep ze in de juiste volgorde op de lijn.') : (isMulti ? BP.I18n.text('De bubbles starten boven de as. Sleep ze op de juiste plek.') : BP.I18n.text('De bubble start boven de as. Sleep ze op de juiste plek.'))) + '</p>' +
       '</section>' +
       '<div class="feedback ' + feedbackClass + '" data-line-feedback>' + feedbackText + '</div>';
   }
 
   function titleHtml(question, isMulti) {
-    if (isMulti) return BP.Fraction.escapeHtml(question.prompt || "Plaats de bubbles");
+    if (isMulti) return '<span class="line-title-text">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt || "Plaats de bubbles")) + '</span>';
     var target = question.target;
-    return BP.Fraction.escapeHtml(question.prompt || "Plaats") + ' ' + BP.Fraction.html(target.numerator, target.denominator);
+    return '<span class="line-title-text">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt || "Plaats")) + '</span><span class="line-title-fraction">' + BP.Fraction.html(target.numerator, target.denominator) + '</span>';
   }
 
   function draggableBubblesHtml(question, isMulti) {
@@ -47,7 +47,8 @@
     }];
     return items.map(function (item, index) {
       return '' +
-        '<button class="line-drag-bubble choice-bubble" type="button" data-line-item="' + BP.Fraction.escapeHtml(item.id || ('item-' + index)) + '" data-item-index="' + index + '" aria-label="sleep ' + BP.Fraction.escapeHtml(item.numerator + '/' + item.denominator) + '">' +
+        '<button class="line-drag-bubble choice-bubble png-choice-bubble" type="button" data-line-item="' + BP.Fraction.escapeHtml(item.id || ('item-' + index)) + '" data-item-index="' + index + '" aria-label="sleep ' + BP.Fraction.escapeHtml(item.numerator + '/' + item.denominator) + '">' +
+          BP.Bubble.skinLayer(null, 'normal') +
           '<span class="choice-bubble-shine"></span>' +
           '<span class="choice-bubble-content">' + BP.Fraction.html(item.numerator, item.denominator) + '</span>' +
         '</button>';
@@ -145,7 +146,7 @@
         snapToLine(bubble, isOrder ? placedValue : targetValue);
         bubble.classList.add('correct', 'popped');
         bubble.disabled = true;
-        setFeedback('good', isOrder ? 'Plop! Nu de volgende bubble.' : (isMulti ? 'Plop! Die bubble ligt juist.' : 'Plop! Juist op de lijn.'));
+        setFeedback('good', isOrder ? BP.I18n.text('Plop! Nu de volgende bubble.') : (isMulti ? BP.I18n.text('Plop! Die bubble ligt juist.') : BP.I18n.text('Plop! Juist op de lijn.')));
         if (!isMulti || Object.keys(placed).length === items.length) {
           locked = true;
           stage.classList.add('line-success', 'bubble-pop-success');
@@ -158,7 +159,7 @@
         stage.classList.remove('line-wrong');
         void stage.offsetWidth;
         stage.classList.add('line-wrong');
-        setFeedback('bad', closeToLine ? hintText(placedValue, targetValue) : 'Laat de bubble op de as los.');
+        setFeedback('bad', closeToLine ? hintText(placedValue, targetValue) : BP.I18n.text('Laat de bubble op de as los.'));
         if (helpers && typeof helpers.recordMistake === 'function') {
           helpers.recordMistake({ type: isOrder ? 'number-line-order' : (isMulti ? 'number-line-multi' : 'number-line-position'), placed: placedValue });
         }
@@ -243,9 +244,9 @@
     }
 
     function hintText(placedValue, targetValue) {
-      if (!Number.isFinite(placedValue)) return 'Sleep de bubble naar de lijn.';
-      if (placedValue < targetValue) return 'Nog niet. Iets meer naar rechts.';
-      return 'Nog niet. Iets meer naar links.';
+      if (!Number.isFinite(placedValue)) return BP.I18n.text('Sleep de bubble naar de lijn.');
+      if (placedValue < targetValue) return BP.I18n.text('Nog niet. Iets meer naar rechts.');
+      return BP.I18n.text('Nog niet. Iets meer naar links.');
     }
   }
 

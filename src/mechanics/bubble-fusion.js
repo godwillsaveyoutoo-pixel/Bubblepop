@@ -25,16 +25,16 @@
 
   function buildTitleHtml(question, target) {
     if (question && question.targetLabel) {
-      return BP.Fraction.escapeHtml(question.prompt || 'Maak') + ' <span class="value-form-target plain-target-label">' + BP.Fraction.escapeHtml(question.targetLabel) + '</span>';
+      return BP.Fraction.escapeHtml(BP.I18n.text(question.prompt || 'Maak')) + ' <span class="value-form-target plain-target-label">' + BP.Fraction.escapeHtml(question.targetLabel) + '</span>';
     }
-    return BP.Fraction.escapeHtml(question.prompt || 'Maak') + ' ' + BP.Fraction.html(target.numerator, target.denominator);
+    return BP.Fraction.escapeHtml(BP.I18n.text(question.prompt || 'Maak')) + ' ' + BP.Fraction.html(target.numerator, target.denominator);
   }
 
   function buildInstruction(question) {
     if (question && question.guidedConversion) {
-      return 'Versmelt bubbles. Als de stukjes anders zijn, splitst het spel ze vanzelf even gelijk.';
+      return BP.I18n.text('Versmelt bubbles. Als de stukjes anders zijn, splitst het spel ze vanzelf even gelijk.');
     }
-    return 'Versmelt bubbles tot je de doelbreuk maakt. Tikken mag ook: kies eerst de ene, dan de andere.';
+    return BP.I18n.text('Versmelt bubbles tot je de doelbreuk maakt. Tikken mag ook: kies eerst de ene, dan de andere.');
   }
 
   function mount(container, onAnswer, question, roundState, context) {
@@ -84,13 +84,13 @@
       if (solved || recentlyDragged) return;
       if (!selectedId) {
         selectedId = id;
-        setFeedback('', 'Kies nu de tweede bubble om te versmelten.');
+        setFeedback('', BP.I18n.text('Kies nu de tweede bubble om te versmelten.'));
         renderPool();
         return;
       }
       if (selectedId === id) {
         selectedId = null;
-        setFeedback('', 'Selectie gewist. Kies twee verschillende bubbles.');
+        setFeedback('', BP.I18n.text('Selectie gewist. Kies twee verschillende bubbles.'));
         renderPool();
         return;
       }
@@ -107,7 +107,7 @@
         },
         onMiss: function () {
           markRecentlyDragged();
-          setFeedback('', 'Laat een bubble los boven een andere bubble.');
+          setFeedback('', BP.I18n.text('Laat een bubble los boven een andere bubble.'));
         }
       });
     }
@@ -151,7 +151,7 @@
       var target = question.target;
       if (BP.Fraction.equals(piece, target)) {
         solved = true;
-        setFeedback('good', 'Plop! Je maakte de doelbreuk.');
+        setFeedback('good', BP.I18n.text('Plop! Je maakte de doelbreuk.'));
         if (undoButton) undoButton.disabled = true;
         window.setTimeout(function () {
           onAnswer({ fraction: piece });
@@ -160,12 +160,12 @@
       }
 
       if (isGreaterThan(piece, target)) {
-        setFeedback('bad', 'Te groot. Tik ↶ om die versmelting terug te nemen.');
+        setFeedback('bad', BP.I18n.text('Te groot. Tik ↶ om die versmelting terug te nemen.'));
         recordMistake(piece);
         return;
       }
 
-      setFeedback('', 'Nieuwe bubble: ' + piece.numerator + '/' + piece.denominator + '. Maak verder of gebruik ↶.');
+      setFeedback('', BP.I18n.text('Nieuwe bubble: {value}. Maak verder of gebruik ↶.', { value: piece.numerator + '/' + piece.denominator }));
     }
 
     function undoLastMove() {
@@ -173,7 +173,7 @@
       pieces = history.pop();
       selectedId = null;
       renderPool();
-      setFeedback('', 'Zet ongedaan. Probeer een andere versmelting.');
+      setFeedback('', BP.I18n.text('Zet ongedaan. Probeer een andere versmelting.'));
       clearConversion();
     }
 function findPieceIndex(id) {

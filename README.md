@@ -138,3 +138,61 @@ Deze versie voegt een visuele asset-laag toe zonder de spelinhoud te wijzigen:
 - `fractions.js` bevat nu een `theme`-blok voor toekomstige wereldskins.
 
 Belangrijke regel: PNG’s mogen geen breuken, tekst of getallen bevatten. De PNG is alleen de visuele huid; labels blijven dynamisch in HTML/CSS.
+
+
+## v35 — geïntegreerde PNG-assets
+- echte bubble PNG's gekoppeld aan de thema-laag
+- aparte home/startachtergrond
+- aparte menu/resultaatachtergrond
+- aparte Breukenzee gameplay-achtergrond
+- operatorbubbles en quantity pearls gebruiken nu eigen skins
+
+
+## v36 — PNG fix en finetuning
+- fix: CSS variabelen voor theme/assets stonden op .screen-bg en bereikten de bubble-elementen niet
+- theme/background vars staan nu op de volledige .screen, zodat bubbles hun PNG-skin echt tonen
+- bubble skins visueel versterkt met betere sizing en schaduw
+- achtergronden duidelijker zichtbaar gemaakt
+
+
+## v37 — file:// asset path hotfix
+- asset URLs worden nu absoluut gemaakt t.o.v. `index.html` via `document.baseURI`
+- dit voorkomt dat CSS custom properties PNG's relatief aan `/styles/game/` proberen te laden
+- fullscreen gebruikt op `file://` een veilige CSS-fallback i.p.v. native fullscreen, om Chrome file-origin warnings te vermijden
+- alle assets uit `src/data/assets.js` zijn in de ZIP aanwezig
+
+
+## v38 — local file hotfix
+- fixed `toDocumentUrl is not defined` in `asset-manager.js`
+- asset URLs are now resolved relative to `index.html` using `document.baseURI`
+- CSS URLs are quoted safely
+- on `file://`, fullscreen uses only the CSS fallback and never calls native `requestFullscreen`
+- added `scripts/check-assets.js` for quick local asset verification
+
+
+## v40 — nieuwe bubbletypes
+- gewone breukbubble = blauw
+- plus/operatorbubble = groen
+- minbubble = rood/roze
+- maalbubble = amber/goud
+- deelbubble = paars
+- quantity bubble = groenblauw
+- value/special bubble = paars-blauw
+
+
+## v41 — PNG bubbles polish
+- zie de breuk: keuze-bubbles krijgen expliciete PNG bubble-skin
+- teller/noemer: keuze-bubbles krijgen expliciete PNG bubble-skin
+- zelfde waarde: opgavebubble en keuze-bubbles zijn nu echte ronde PNG bubbles
+- visualisaties in bubbles kleiner geschaald zodat ze niet horizontaal uitrekken
+- op de lijn / bubbles op een lijn: draggable bubbles krijgen expliciete PNG bubble-skin
+- lijn-titel "Plaats 1/2" beter uitgelijnd
+
+
+## v42 — visual polish
+- menu-, skill- en levelkaarten visueel meer in één glossy underwater stijl
+- levelnummers en taalbadges krijgen bubble-achtige styling
+- opgavebreuken krijgen een kleine ronde PNG-bubble look
+- breuken in bubbles beter gecentreerd
+- zelfde-waarde visualisaties verder verkleind zodat ze beter in ronde bubbles passen
+- getallenas-stage en titel subtiel gepolijst

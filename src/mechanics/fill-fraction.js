@@ -15,10 +15,10 @@
     selected = [];
     var target = question.target;
     var feedbackClass = "";
-    var feedbackText = "Tik de delen die moeten oplichten.";
+    var feedbackText = BP.I18n.text("Tik de delen die moeten oplichten.");
     if (roundState.lastAnswer) {
       feedbackClass = roundState.lastAnswer.correct ? "good" : "bad";
-      feedbackText = roundState.lastAnswer.correct ? "Plop!" : "Probeer opnieuw.";
+      feedbackText = roundState.lastAnswer.correct ? BP.I18n.text("Plop!") : BP.I18n.text("Probeer opnieuw.");
     }
 
     return '' +
@@ -27,7 +27,7 @@
         '<div class="fill-stage bubble-action-stage" data-fill-stage>' +
           fillGridHtml(question.visual, target) +
         '</div>' +
-        '<p class="mechanic-note" data-fill-note>Tik precies ' + target.numerator + ' ' + (target.numerator === 1 ? 'deel' : 'delen') + '. Geen controleknop nodig.</p>' +
+        '<p class="mechanic-note" data-fill-note>' + BP.I18n.text('Tik precies {n} {part}. Geen controleknop nodig.', { n: target.numerator, part: BP.I18n.t(target.numerator === 1 ? 'part' : 'parts') }) + '</p>' +
       '</section>' +
       '<div class="feedback ' + feedbackClass + '" data-fill-feedback>' + feedbackText + '</div>';
   }
@@ -39,7 +39,7 @@
     var cells = [];
     for (var i = 0; i < denominator; i += 1) {
       cells.push(
-        '<button class="fill-cell bubble-fill-cell" type="button" data-fill-index="' + i + '" aria-label="deel ' + (i + 1) + ' van ' + denominator + '"></button>'
+        '<button class="fill-cell bubble-fill-cell" type="button" data-fill-index="' + i + '" aria-label="' + BP.I18n.t('part') + ' ' + (i + 1) + ' ' + BP.I18n.t('of') + ' ' + denominator + '"></button>'
       );
     }
     return '' +
@@ -121,7 +121,7 @@
       var feedback = container.querySelector('[data-fill-feedback]');
       if (feedback) {
         feedback.className = 'feedback good';
-        feedback.textContent = 'Plop!';
+        feedback.textContent = BP.I18n.text('Plop!');
       }
       window.setTimeout(function () {
         onAnswer({
@@ -142,9 +142,9 @@
       var target = question.target;
       var remaining = Number(target.numerator) - selected.length;
       if (remaining > 0) {
-        note.textContent = 'Nog ' + remaining + ' ' + (remaining === 1 ? 'deel' : 'delen') + ' tikken.';
+        note.textContent = BP.I18n.text('Nog {n} {part} tikken.', { n: remaining, part: BP.I18n.t(remaining === 1 ? 'part' : 'parts') });
       } else {
-        note.textContent = 'Mooi!';
+        note.textContent = BP.I18n.text('Mooi!');
       }
     }
   }

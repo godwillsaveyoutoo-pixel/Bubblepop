@@ -21,13 +21,13 @@
   }
 
   function image(assetId, alt, className) {
-    var src = resolve(assetId);
+    var src = toDocumentUrl(resolve(assetId));
     var cls = className ? ' class="' + escapeAttr(className) + '"' : '';
     return '<img src="' + escapeAttr(src) + '" alt="' + escapeAttr(alt || "") + '"' + cls + ' />';
   }
 
   function cssUrl(assetId) {
-    var src = resolve(assetId);
+    var src = toDocumentUrl(resolve(assetId));
     if (!src) return 'none';
     return 'url("' + escapeCssUrl(src) + '")';
   }
@@ -41,7 +41,7 @@
         var img = new Image();
         img.onload = function () { resolvePromise(true); };
         img.onerror = function () { resolvePromise(false); };
-        img.src = src;
+        img.src = toDocumentUrl(src);
       });
       return cache[assetId];
     }));
@@ -52,6 +52,16 @@
       return BP.ASSETS[assetId].preload;
     });
     return preload(ids);
+  }
+
+
+  function toDocumentUrl(src) {
+    if (!src) return "";
+    try {
+      return new URL(src, document.baseURI || window.location.href).href;
+    } catch (error) {
+      return src;
+    }
   }
 
   function escapeAttr(value) {

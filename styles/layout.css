@@ -29,14 +29,14 @@
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.72;
+  opacity: 0.9;
   transform: scale(1.01);
 }
 .screen-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(4,20,35,0.12), rgba(4,20,35,0.58));
+  background: linear-gradient(180deg, rgba(4,20,35,0.06), rgba(4,20,35,0.34));
 }
 .top-row {
   display: flex;

@@ -10,6 +10,7 @@
     pulsePiece: pulsePiece,
     resetDragStyle: resetDragStyle,
     skinImage: skinImage,
+    skinLayer: skinLayer,
     setFeedback: setFeedback,
     setUndoDisabled: setUndoDisabled,
     uid: uid
@@ -54,9 +55,15 @@
     button.style.zIndex = '';
   }
 
-  function skinImage(assetId, alt, kind) {
-    var fallback = BP.Theme && BP.Theme.bubbleSkin ? BP.Theme.bubbleSkin(kind) : 'bubble.blue.idle';
+  function skinImage(assetId, alt, kind, subtype) {
+    var fallback = BP.Theme && BP.Theme.bubbleSkin ? BP.Theme.bubbleSkin(kind, subtype) : 'bubble.blue.idle';
     return BP.AssetManager.image(assetId || fallback, alt || '', 'bubble-skin-img');
+  }
+
+
+  function skinLayer(assetId, kind, subtype, className) {
+    var cls = className ? ' ' + className : '';
+    return '<span class="bubble-skin-layer' + cls + '" aria-hidden="true">' + skinImage(assetId, '', kind, subtype) + '</span>';
   }
 
   function pulsePiece(container, id, options) {

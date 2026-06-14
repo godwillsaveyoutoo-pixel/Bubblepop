@@ -18,11 +18,11 @@
     return '' +
       '<section class="question-card quantity-card coherent-card">' +
         '<h2 class="question-title quantity-title">' +
-          BP.Fraction.escapeHtml(question.prompt || 'Pak') + ' ' + targetHtml +
-          '<span class="quantity-of"> van ' + BP.Fraction.escapeHtml(quantity) + '</span>' +
+          BP.Fraction.escapeHtml(BP.I18n.text(question.prompt || 'Pak')) + ' ' + targetHtml +
+          '<span class="quantity-of"> ' + BP.I18n.t('of') + ' ' + BP.Fraction.escapeHtml(quantity) + '</span>' +
         '</h2>' +
         '<button class="quantity-target-bubble" type="button" data-quantity-confirm aria-label="bevestig je gekozen bubbles">' +
-          '<span class="quantity-target-main">Plop!</span>' +
+          '<span class="quantity-target-main">' + BP.I18n.text('Plop!') + '</span>' +
         '</button>' +
         '<div class="quantity-stage loose-quantity-stage" data-quantity-stage>' +
           renderLooseBubbles(quantity) +
@@ -86,7 +86,7 @@
         var last = selected.pop();
         var button = stage.querySelector('[data-pearl-index="' + last + '"]');
         if (button) button.classList.remove('selected', 'just-selected');
-        setFeedback('', 'Zet ongedaan. Kies opnieuw.');
+        setFeedback('', BP.I18n.text('Zet ongedaan. Kies opnieuw.'));
         stage.classList.remove('quantity-too-many', 'quantity-too-few', 'quantity-success');
         if (confirmButton) confirmButton.classList.remove('quantity-target-wrong', 'quantity-target-ready');
         updateNote();
@@ -128,7 +128,7 @@
           confirmButton.classList.remove('quantity-target-wrong');
           confirmButton.classList.add('quantity-target-correct');
         }
-        setFeedback('good', 'Plop!');
+        setFeedback('good', BP.I18n.text('Plop!'));
         window.setTimeout(function () {
           onAnswer({
             selectedCount: selected.length,
@@ -156,7 +156,7 @@
         confirmButton.classList.remove('quantity-target-ready');
         confirmButton.classList.add('quantity-target-wrong');
       }
-      setFeedback('bad', chosen < targetCount ? 'Nog te weinig.' : 'Te veel. Tik terug of gebruik ↶.');
+      setFeedback('bad', chosen < targetCount ? BP.I18n.text('Nog te weinig.') : BP.I18n.text('Te veel. Tik terug of gebruik ↶.'));
       updateNote();
       updateUndo();
     }
@@ -164,9 +164,9 @@
     function updateNote() {
       if (!note) return;
       if (!selected.length) {
-        note.textContent = 'Pop hoeveel jij denkt. Tik daarna op de doelbubble.';
+        note.textContent = BP.I18n.text('Pop hoeveel jij denkt. Tik daarna op de doelbubble.');
       } else {
-        note.textContent = 'Klaar? Tik op de grote doelbubble.';
+        note.textContent = BP.I18n.text('Klaar? Tik op de grote doelbubble.');
       }
       if (confirmButton) confirmButton.classList.toggle('quantity-target-ready', selected.length > 0 && !locked);
     }
@@ -183,6 +183,6 @@
   }
 
   function hintText(question) {
-    return 'Pop losse bubbles. Tik daarna op de grote doelbubble.';
+    return BP.I18n.text('Pop losse bubbles. Tik daarna op de grote doelbubble.');
   }
 })();

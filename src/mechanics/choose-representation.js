@@ -9,15 +9,15 @@
 
   function render(question, roundState) {
     var feedbackClass = "";
-    var feedbackText = "Pop de breukbubble die erbij past.";
+    var feedbackText = BP.I18n.text("Pop de breukbubble die erbij past.");
     if (roundState.lastAnswer) {
       feedbackClass = roundState.lastAnswer.correct ? "good" : "bad";
-      feedbackText = roundState.lastAnswer.correct ? "Plop!" : "Nog niet. Kijk naar gekleurd tegenover totaal.";
+      feedbackText = roundState.lastAnswer.correct ? BP.I18n.text("Plop!") : BP.I18n.text("Nog niet. Kijk naar gekleurd tegenover totaal.");
     }
 
     return '' +
       '<section class="question-card visual-choice-card coherent-card bubblepop-card">' +
-        '<h2 class="question-title">' + BP.Fraction.escapeHtml(question.prompt) + '</h2>' +
+        '<h2 class="question-title">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt)) + '</h2>' +
         '<div class="bubble-visual-wrap">' + BP.VisualFraction.html(question.visual, { caption: false, large: true }) + '</div>' +
         '<div class="representation-grid choice-bubble-grid">' + question.choices.map(function (choice, index) {
           var answerState = "";
@@ -25,7 +25,8 @@
             answerState = roundState.lastAnswer.correct ? " correct popped" : " wrong";
           }
           return '' +
-            '<button class="representation-option choice-bubble' + answerState + '" data-choice-index="' + index + '" aria-label="' + BP.Fraction.escapeHtml(choice.numerator + '/' + choice.denominator) + '">' +
+            '<button class="representation-option choice-bubble png-choice-bubble' + answerState + '" data-choice-index="' + index + '" aria-label="' + BP.Fraction.escapeHtml(choice.numerator + '/' + choice.denominator) + '">' +
+              BP.Bubble.skinLayer(null, 'normal') +
               '<span class="choice-bubble-shine"></span>' +
               '<span class="choice-bubble-content">' + BP.Fraction.html(choice.numerator, choice.denominator) + '</span>' +
             '</button>';

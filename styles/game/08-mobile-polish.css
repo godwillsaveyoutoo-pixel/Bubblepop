@@ -326,6 +326,17 @@
 .app-fullscreen-fallback .app-shell {
   padding: 0;
 }
+
+:fullscreen .screen,
+.app-fullscreen-fallback .screen {
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100dvh;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+}
+
 :fullscreen .game-screen,
 .app-fullscreen-fallback .game-screen {
   width: 100vw;
@@ -341,4 +352,17 @@
 /* v32.2 — fullscreen is gesture-driven from menu screens, no visible fullscreen buttons. */
 .screen:not(.game-screen) {
   touch-action: manipulation;
+}
+
+
+/* v41 additional layout polish */
+.equivalent-grid.equivalent-bubble-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  place-items: center;
+}
+.number-choice-grid.number-bubble-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  place-items: center;
 }

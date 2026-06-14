@@ -9,22 +9,22 @@
 
   function render(question, roundState) {
     var feedbackClass = "";
-    var feedbackText = "Pop het juiste getal.";
+    var feedbackText = BP.I18n.text("Pop het juiste getal.");
     if (roundState.lastAnswer) {
       feedbackClass = roundState.lastAnswer.correct ? "good" : "bad";
-      feedbackText = roundState.lastAnswer.correct ? "Plop!" : "Nog niet. Teller = gekleurd, noemer = totaal.";
+      feedbackText = roundState.lastAnswer.correct ? BP.I18n.text("Plop!") : BP.I18n.text("Nog niet. Teller = gekleurd, noemer = totaal.");
     }
 
     return '' +
       '<section class="question-card parts-card coherent-card bubblepop-card">' +
-        '<h2 class="question-title">' + BP.Fraction.escapeHtml(question.prompt) + '</h2>' +
+        '<h2 class="question-title">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt)) + '</h2>' +
         '<div class="bubble-visual-wrap">' + BP.VisualFraction.html(question.visual, { caption: false, large: true }) + '</div>' +
         '<div class="number-choice-grid number-bubble-grid">' + question.choices.map(function (choice, index) {
           var answerState = "";
           if (roundState.lastAnswer && roundState.lastAnswer.choiceIndex === index) {
             answerState = roundState.lastAnswer.correct ? " correct popped" : " wrong";
           }
-          return '<button class="number-option choice-bubble number-bubble' + answerState + '" data-choice-index="' + index + '"><span class="choice-bubble-shine"></span><span class="choice-bubble-content">' + BP.Fraction.escapeHtml(choice.label) + '</span></button>';
+          return '<button class="number-option choice-bubble number-bubble png-choice-bubble' + answerState + '" data-choice-index="' + index + '">' + BP.Bubble.skinLayer(null, 'normal') + '<span class="choice-bubble-shine"></span><span class="choice-bubble-content">' + BP.Fraction.escapeHtml(choice.label) + '</span></button>';
         }).join('') + '</div>' +
       '</section>' +
       '<div class="feedback ' + feedbackClass + '">' + feedbackText + '</div>';

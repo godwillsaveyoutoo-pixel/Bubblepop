@@ -4,10 +4,13 @@
   --bp-bg-image: none;
   --bp-bubble-image: none;
   --bp-operator-bubble-image: var(--bp-bubble-image);
+  --bp-quantity-bubble-image: var(--bp-bubble-image);
   --bp-pop-fx-image: none;
 }
 .screen-bg {
   background-image: var(--bp-bg-image);
+  background-size: cover;
+  background-position: center;
 }
 
 /* HTML/CSS bubbles can be skinned with a transparent PNG without putting text in the image. */
@@ -27,7 +30,7 @@
 
 .quantity-pearl {
   background-image:
-    var(--bp-bubble-image),
+    var(--bp-quantity-bubble-image),
     radial-gradient(circle at 32% 25%, rgba(255,255,255,0.96), rgba(133,230,255,0.77) 42%, rgba(25,117,178,0.7));
   background-size: contain, auto;
   background-repeat: no-repeat;
@@ -54,4 +57,329 @@
 .quantity-success,
 .value-fusion-piece.correct {
   --bp-pop-active: var(--bp-pop-fx-image);
+}
+
+
+/* v36 tuning — make PNG skins clearly visible */
+.choice-bubble,
+.line-drag-bubble,
+.line-fraction-bubble,
+.quantity-target-bubble,
+.value-target-bubble,
+.value-fusion-piece,
+.quantity-pearl {
+  border-radius: 50%;
+  box-shadow: 0 10px 26px rgba(7, 33, 61, 0.18), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.choice-bubble,
+.line-drag-bubble,
+.line-fraction-bubble,
+.quantity-target-bubble,
+.value-target-bubble,
+.value-fusion-piece {
+  background-size: 100% 100%, auto;
+}
+.quantity-pearl {
+  background-size: 100% 100%, auto;
+}
+.bubble-skin-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.operator-mix-piece,
+.multiply-piece,
+.divide-piece,
+.subtract-piece,
+.signed-piece {
+  filter: drop-shadow(0 10px 24px rgba(4,20,35,0.18));
+}
+
+
+/* v41 — explicit PNG bubble layer on choice/line/equivalent bubbles */
+.choice-bubble,
+.line-drag-bubble,
+.line-fraction-bubble {
+  position: relative;
+  isolation: isolate;
+}
+.bubble-skin-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 0;
+  pointer-events: none;
+}
+.bubble-skin-layer .bubble-skin-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.22));
+}
+.choice-bubble-shine {
+  z-index: 1;
+}
+.choice-bubble-content {
+  z-index: 2;
+}
+.png-choice-bubble,
+.target-visual-bubble {
+  background: transparent !important;
+  border-color: rgba(255,255,255,0.14);
+  box-shadow: none;
+}
+.target-visual-bubble {
+  justify-self: center;
+}
+.equivalent-target-shell {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+.visual-choice-bubble {
+  width: clamp(108px, 31vw, 136px);
+  min-height: 0;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  padding: 0;
+  justify-self: center;
+  align-self: center;
+}
+.target-visual-bubble {
+  width: clamp(124px, 36vw, 154px);
+}
+.visual-choice-bubble .choice-bubble-content {
+  width: 72%;
+  height: 72%;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+.target-visual-bubble .choice-bubble-content {
+  width: 74%;
+  height: 74%;
+}
+.visual-choice-bubble .fraction-visual,
+.target-visual-bubble .fraction-visual {
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.visual-choice-bubble .visual-caption,
+.target-visual-bubble .visual-caption {
+  margin-top: 4px;
+}
+.visual-choice-bubble .visual-bar,
+.visual-choice-bubble .bar-pieces,
+.target-visual-bubble .visual-bar,
+.target-visual-bubble .bar-pieces {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: clamp(24px, 8vw, 36px);
+  padding: 3px;
+  gap: 2px;
+  border-radius: 14px;
+}
+.visual-choice-bubble .visual-circle,
+.visual-choice-bubble .circle-pieces,
+.target-visual-bubble .visual-circle,
+.target-visual-bubble .circle-pieces {
+  width: clamp(50px, 15vw, 68px);
+  height: clamp(50px, 15vw, 68px);
+}
+.equivalent-target.bubble-target-card,
+.equivalent-target {
+  background: transparent !important;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+.number-option.choice-bubble,
+.representation-option.choice-bubble,
+.line-drag-bubble.choice-bubble {
+  background: transparent !important;
+}
+.line-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.line-title-text,
+.line-title-fraction {
+  display: inline-flex;
+  align-items: center;
+}
+.line-title-fraction .fraction {
+  margin: 0;
+}
+@media (max-width: 390px) {
+  .visual-choice-bubble { width: clamp(98px, 30vw, 120px); }
+  .target-visual-bubble { width: clamp(116px, 35vw, 140px); }
+  .visual-choice-bubble .visual-bar,
+  .visual-choice-bubble .bar-pieces,
+  .target-visual-bubble .visual-bar,
+  .target-visual-bubble .bar-pieces { height: clamp(22px, 8vw, 30px); }
+  .visual-choice-bubble .visual-circle,
+  .visual-choice-bubble .circle-pieces,
+  .target-visual-bubble .visual-circle,
+  .target-visual-bubble .circle-pieces { width: clamp(46px, 14vw, 60px); height: clamp(46px, 14vw, 60px); }
+}
+
+
+/* v42 — gameplay bubble polish: clearer centers, better title bubbles and less stretched visuals */
+.question-card {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.18), transparent 30%),
+    rgba(4, 26, 46, 0.24);
+  box-shadow:
+    0 18px 40px rgba(1, 18, 35, .20),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+.question-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  line-height: 1.05;
+}
+.question-title .fraction,
+.fusion-title .fraction,
+.fill-title .fraction,
+.quantity-title .fraction,
+.line-title-fraction .fraction {
+  width: clamp(52px, 15vw, 64px);
+  height: clamp(52px, 15vw, 64px);
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  background:
+    url("../../assets/bubbles/bubble-blue-idle.png") center / 100% 100% no-repeat;
+  box-shadow: 0 10px 22px rgba(0,0,0,.18);
+  font-size: clamp(1.05rem, 4.6vw, 1.34rem);
+}
+.question-title .fraction-line,
+.fusion-title .fraction-line,
+.fill-title .fraction-line,
+.quantity-title .fraction-line,
+.line-title-fraction .fraction-line {
+  height: 3px;
+}
+.choice-bubble-content .fraction,
+.line-drag-bubble .fraction,
+.number-bubble .choice-bubble-content {
+  transform: translateY(1px);
+}
+.representation-option.choice-bubble,
+.number-option.choice-bubble,
+.line-drag-bubble.choice-bubble {
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.18));
+}
+.representation-option.choice-bubble .bubble-skin-layer,
+.number-option.choice-bubble .bubble-skin-layer,
+.line-drag-bubble.choice-bubble .bubble-skin-layer {
+  transform: scale(1.08);
+}
+.visual-choice-bubble,
+.target-visual-bubble {
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.18));
+}
+.visual-choice-bubble .bubble-skin-layer,
+.target-visual-bubble .bubble-skin-layer {
+  transform: scale(1.08);
+}
+.visual-choice-bubble .choice-bubble-content {
+  width: 66%;
+  height: 66%;
+}
+.target-visual-bubble .choice-bubble-content {
+  width: 68%;
+  height: 68%;
+}
+.visual-choice-bubble .visual-caption .fraction,
+.target-visual-bubble .visual-caption .fraction {
+  width: auto;
+  height: auto;
+  min-width: 34px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.66);
+  box-shadow: none;
+  font-size: .82rem;
+}
+.visual-choice-bubble .visual-caption .fraction-line,
+.target-visual-bubble .visual-caption .fraction-line {
+  height: 2px;
+}
+.visual-choice-bubble .visual-bar,
+.visual-choice-bubble .bar-pieces,
+.target-visual-bubble .visual-bar,
+.target-visual-bubble .bar-pieces {
+  height: clamp(20px, 6.5vw, 30px);
+  border-radius: 12px;
+}
+.visual-choice-bubble .visual-circle,
+.visual-choice-bubble .circle-pieces,
+.target-visual-bubble .visual-circle,
+.target-visual-bubble .circle-pieces {
+  width: clamp(44px, 13vw, 60px);
+  height: clamp(44px, 13vw, 60px);
+}
+.equivalent-grid.equivalent-bubble-grid {
+  gap: clamp(8px, 2.8vw, 13px);
+}
+.equivalent-target-shell .mini-label {
+  opacity: .88;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+}
+.line-title {
+  text-align: center;
+  min-height: 52px;
+}
+.line-title-text {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.line-title-fraction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.drag-line-stage,
+.number-line-stage {
+  background:
+    radial-gradient(circle at 50% 22%, rgba(134,245,255,.23), transparent 38%),
+    linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
+  border-color: rgba(185,244,255,.24);
+}
+.number-line-track {
+  background: linear-gradient(90deg, rgba(255,255,255,.86), rgba(134,245,255,.92), rgba(255,224,113,.74));
+}
+@media (max-width: 390px) {
+  .question-title .fraction,
+  .fusion-title .fraction,
+  .fill-title .fraction,
+  .quantity-title .fraction,
+  .line-title-fraction .fraction {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+    padding: 8px 10px;
+  }
+  .visual-choice-bubble .choice-bubble-content { width: 63%; height: 63%; }
+  .target-visual-bubble .choice-bubble-content { width: 66%; height: 66%; }
 }

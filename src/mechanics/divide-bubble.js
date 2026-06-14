@@ -13,12 +13,12 @@
     var target = question.target;
     return '' +
       '<section class="question-card fusion-card divide-card add-card">' +
-        '<h2 class="question-title fusion-title">' + BP.Fraction.escapeHtml(question.prompt || 'Maak') + ' ' + BP.Fraction.html(target.numerator, target.denominator) + '</h2>' +
+        '<h2 class="question-title fusion-title">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt || 'Maak')) + ' ' + BP.Fraction.html(target.numerator, target.denominator) + '</h2>' +
         '<div class="fusion-arena divide-arena" data-divide-arena>' +
           '<div class="fusion-pool divide-pool" data-divide-pool></div>' +
           '<div class="fusion-conversion-note divide-note" data-divide-note></div>' +
         '</div>' +
-        '<p class="fusion-instruction">Sleep een deelbubble op een breukbubble. Tikken mag ook: kies twee bubbles.</p>' +
+        '<p class="fusion-instruction">' + BP.I18n.text('Sleep een deelbubble op een breukbubble. Tikken mag ook: kies twee bubbles.') + '</p>' +
       '</section>' +
       '<div class="feedback" data-divide-feedback></div>';
   }
@@ -59,7 +59,7 @@
       var aria = isOperator ? ('deel door ' + operatorText(piece.divisor)) : (piece.numerator + ' op ' + piece.denominator);
       return '' +
         '<button class="fusion-piece divide-piece' + (isOperator ? ' divide-operator-piece' : ' divide-fraction-piece') + '" data-piece-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="' + BP.Fraction.escapeHtml(aria) + '">' +
-          BP.Bubble.skinImage(null, '', isOperator ? 'operator' : 'normal') +
+          BP.Bubble.skinImage(null, '', isOperator ? 'operator' : 'normal', operatorSubtype(piece)) +
           '<span class="divide-piece-label">' + label + '</span>' +
         '</button>';
     }
@@ -68,13 +68,13 @@
       if (solved || recentlyDragged) return;
       if (!selectedId) {
         selectedId = id;
-        setFeedback('', 'Kies nu de bubble waarmee je wil delen.');
+        setFeedback('', BP.I18n.text('Kies nu de bubble waarmee je wil delen.'));
         renderPool();
         return;
       }
       if (selectedId === id) {
         selectedId = null;
-        setFeedback('', 'Selectie gewist. Kies twee verschillende bubbles.');
+        setFeedback('', BP.I18n.text('Selectie gewist. Kies twee verschillende bubbles.'));
         renderPool();
         return;
       }
@@ -91,7 +91,7 @@
         },
         onMiss: function () {
           markRecentlyDragged();
-          setFeedback('', 'Laat een bubble los boven een andere bubble.');
+          setFeedback('', BP.I18n.text('Laat een bubble los boven een andere bubble.'));
         }
       });
     }
@@ -112,7 +112,7 @@
       var operator = a.kind === 'operator' ? a : (b.kind === 'operator' ? b : null);
       var fraction = a.kind === 'fraction' ? a : (b.kind === 'fraction' ? b : null);
       if (!operator || !fraction) {
-        setFeedback('bad', 'Gebruik één deelbubble en één breukbubble.');
+        setFeedback('bad', BP.I18n.text('Gebruik één deelbubble en één breukbubble.'));
         recordMistake({ reason: 'invalid-pair' });
         selectedId = null;
         renderPool();
@@ -149,12 +149,12 @@
       var target = question.target;
       if (BP.Fraction.equals(piece, target)) {
         solved = true;
-        setFeedback('good', 'Plop!');
+        setFeedback('good', BP.I18n.text('Plop!'));
         if (undoButton) undoButton.disabled = true;
         window.setTimeout(function () { onAnswer({ fraction: piece }); }, 360);
         return;
       }
-      setFeedback('bad', 'Nog niet de doelbreuk. Gebruik ↶ of probeer verder.');
+      setFeedback('bad', BP.I18n.text('Nog niet de doelbreuk. Gebruik ↶ of probeer verder.'));
       recordMistake({ fraction: piece, target: target, reason: 'wrong-division' });
     }
 
@@ -164,7 +164,7 @@
       selectedId = null;
       renderPool();
       clearNote();
-      setFeedback('', 'Zet ongedaan. Probeer een andere deelbubble.');
+      setFeedback('', BP.I18n.text('Zet ongedaan. Probeer een andere deelbubble.'));
     }
 
     function showNote(fraction, operator, result) {
@@ -221,6 +221,11 @@ function pulseNewPiece(id) {
       return '<span class="operator-inline-label divide-inline-label"><span class="operator-symbol divide-symbol">:</span>' + BP.Fraction.html(divisor.numerator, divisor.denominator) + '</span>';
     }
     return '<span class="operator-inline-label divide-inline-label"><span class="operator-symbol divide-symbol">:</span><span class="operator-number">' + BP.Fraction.escapeHtml(divisor) + '</span></span>';
+  }
+
+  function operatorSubtype(piece) {
+    if (!piece || piece.kind !== "operator") return null;
+    return "divide";
   }
 
   function operatorText(divisor) {

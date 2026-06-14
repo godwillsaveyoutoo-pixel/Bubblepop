@@ -6,16 +6,16 @@
     render: function () {
       return {
         html: '' +
-          '<main class="screen">' +
-            BP.Theme.backgroundHtml('skill.fractions.bg.game') +
+          '<main class="screen" style="' + BP.Theme.styleForBackground('skill.fractions.bg.menu') + '">' +
+            BP.Theme.backgroundHtml('skill.fractions.bg.menu') +
             '<div class="screen-inner">' +
               '<div class="top-row">' +
                 '<button class="icon-button" data-action="home">←</button>' +
-                '<span class="pill">Skills</span>' +
+                '<span class="pill">' + BP.I18n.t('skills') + '</span>' +
               '</div>' +
               '<div>' +
-                '<h1 class="app-title">Kies<br>je skill</h1>' +
-                '<p class="subtitle">Geen grote wereldkaart meer: direct naar wat je wil trainen.</p>' +
+                '<h1 class="app-title">' + BP.I18n.t('chooseSkillTitle') + '</h1>' +
+                '<p class="subtitle">' + BP.I18n.t('chooseSkillSubtitle') + '</p>' +
               '</div>' +
               '<div class="stack">' + BP.CONTENT.skills.map(skillCard).join('') + '</div>' +
             '</div>' +
@@ -39,13 +39,13 @@
 
   function skillCard(skill) {
     var progress = BP.Progress.getSkillProgress(skill.id);
-    var icon = skill.iconAsset ? BP.AssetManager.image(skill.iconAsset, skill.title) : '<span style="font-size:2rem;font-weight:900">' + skill.iconText + '</span>';
+    var icon = skill.iconAsset ? BP.AssetManager.image(skill.iconAsset, BP.I18n.text(skill.title)) : '<span style="font-size:2rem;font-weight:900">' + skill.iconText + '</span>';
     return '' +
       '<button class="skill-card" data-skill-id="' + skill.id + '">' +
         '<span class="skill-icon">' + icon + '</span>' +
         '<span>' +
-          '<span class="skill-title">' + skill.title + '</span>' +
-          '<span class="skill-meta">' + (skill.locked ? 'Vergrendeld' : progress.percent + '% · ' + progress.stars + ' sterren') + '</span>' +
+          '<span class="skill-title">' + BP.I18n.text(skill.title) + '</span>' +
+          '<span class="skill-meta">' + (skill.locked ? BP.I18n.t('locked') : progress.percent + '% · ' + progress.stars + ' ' + BP.I18n.t('stars')) + '</span>' +
           '<span class="progress-track"><span class="progress-fill" style="width:' + progress.percent + '%"></span></span>' +
         '</span>' +
         '<span class="pill">' + (skill.locked ? '🔒' : '▶') + '</span>' +

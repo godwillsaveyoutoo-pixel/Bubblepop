@@ -13,12 +13,12 @@
     var target = question.target;
     return '' +
       '<section class="question-card fusion-card operator-mix-card add-card">' +
-        '<h2 class="question-title fusion-title">' + BP.Fraction.escapeHtml(question.prompt || 'Maak') + ' ' + BP.Fraction.html(target.numerator, target.denominator) + '</h2>' +
+        '<h2 class="question-title fusion-title">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt || 'Maak')) + ' ' + BP.Fraction.html(target.numerator, target.denominator) + '</h2>' +
         '<div class="fusion-arena operator-mix-arena" data-operator-mix-arena>' +
           '<div class="fusion-pool operator-mix-pool" data-operator-mix-pool></div>' +
           '<div class="fusion-conversion-note operator-mix-note" data-operator-mix-note></div>' +
         '</div>' +
-        '<p class="fusion-instruction">Kies slim: versmelt twee breukbubbles, of sleep een operatorbubble op een breukbubble.</p>' +
+        '<p class="fusion-instruction">' + BP.I18n.text('Kies slim: versmelt twee breukbubbles, of sleep een operatorbubble op een breukbubble.') + '</p>' +
       '</section>' +
       '<div class="feedback" data-operator-mix-feedback></div>';
   }
@@ -60,7 +60,7 @@
       var aria = isOperator ? operatorAria(piece) : (piece.numerator + ' op ' + piece.denominator);
       return '' +
         '<button class="fusion-piece operator-mix-piece' + css + '" data-piece-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="' + BP.Fraction.escapeHtml(aria) + '">' +
-          BP.Bubble.skinImage(null, '', isOperator ? 'operator' : 'normal') +
+          BP.Bubble.skinImage(null, '', isOperator ? 'operator' : 'normal', operatorSubtype(piece)) +
           '<span class="operator-mix-piece-label">' + label + '</span>' +
         '</button>';
     }
@@ -69,13 +69,13 @@
       if (solved || recentlyDragged) return;
       if (!selectedId) {
         selectedId = id;
-        setFeedback('', 'Kies nu een tweede bubble.');
+        setFeedback('', BP.I18n.text('Kies nu een tweede bubble.'));
         renderPool();
         return;
       }
       if (selectedId === id) {
         selectedId = null;
-        setFeedback('', 'Selectie gewist. Kies twee verschillende bubbles.');
+        setFeedback('', BP.I18n.text('Selectie gewist. Kies twee verschillende bubbles.'));
         renderPool();
         return;
       }
@@ -92,7 +92,7 @@
         },
         onMiss: function () {
           markRecentlyDragged();
-          setFeedback('', 'Laat een bubble los boven een andere bubble.');
+          setFeedback('', BP.I18n.text('Laat een bubble los boven een andere bubble.'));
         }
       });
     }
@@ -114,7 +114,7 @@
       var action = calculateAction(a, b);
       if (!action.ok) {
         selectedId = null;
-        setFeedback('bad', action.message || 'Die combinatie kan hier niet.');
+        setFeedback('bad', action.message || BP.I18n.text('Die combinatie kan hier niet.'));
         recordMistake({ reason: action.reason || 'invalid-pair' });
         renderPool();
         return;
@@ -163,7 +163,7 @@
       }
 
       if (aIsOp && bIsOp) {
-        return { ok: false, reason: 'two-operators', message: 'Gebruik een operatorbubble samen met een breukbubble.' };
+        return { ok: false, reason: 'two-operators', message: BP.I18n.text('Gebruik een operatorbubble samen met een breukbubble.') };
       }
 
       var operator = aIsOp ? a : b;
@@ -189,7 +189,7 @@
       if (operator.operator === 'subtract') {
         result = subtractFractions(fraction, operator.value);
         if (result.numerator < 0) {
-          return { ok: false, reason: 'negative-result', message: 'Dat gaat onder nul. Kies een andere bubble.' };
+          return { ok: false, reason: 'negative-result', message: BP.I18n.text('Dat gaat onder nul. Kies een andere bubble.') };
         }
         return { ok: true, result: result, changed: Number(fraction.denominator) !== Number(operator.value.denominator) };
       }
@@ -203,26 +203,26 @@
       if (operator.operator === 'divide') {
         var num = divisorNumerator(operator.divisor);
         var den = divisorDenominator(operator.divisor);
-        if (!num) return { ok: false, reason: 'zero-divisor', message: 'Delen door nul kan niet.' };
+        if (!num) return { ok: false, reason: 'zero-divisor', message: BP.I18n.text('Delen door nul kan niet.') };
         result = BP.Fraction.simplify(
           Number(fraction.numerator) * den,
           Number(fraction.denominator) * num
         );
         return { ok: true, result: result, changed: true };
       }
-      return { ok: false, reason: 'unknown-operator', message: 'Deze operator ken ik nog niet.' };
+      return { ok: false, reason: 'unknown-operator', message: BP.I18n.text('Deze operator ken ik nog niet.') };
     }
 
     function evaluateNewPiece(piece, action) {
       var target = question.target;
       if (BP.Fraction.equals(piece, target)) {
         solved = true;
-        setFeedback('good', 'Plop!');
+        setFeedback('good', BP.I18n.text('Plop!'));
         if (undoButton) undoButton.disabled = true;
         window.setTimeout(function () { onAnswer({ fraction: piece, action: action.type }); }, 360);
         return;
       }
-      setFeedback('bad', 'Nog niet de doelbreuk. Gebruik ↶ of probeer verder.');
+      setFeedback('bad', BP.I18n.text('Nog niet de doelbreuk. Gebruik ↶ of probeer verder.'));
       recordMistake({ fraction: piece, target: target, action: action.type, reason: 'wrong-result' });
     }
 
@@ -232,7 +232,7 @@
       selectedId = null;
       renderPool();
       clearNote();
-      setFeedback('', 'Zet ongedaan. Kies een andere actie.');
+      setFeedback('', BP.I18n.text('Zet ongedaan. Kies een andere actie.'));
     }
 
     function showNote(action, result) {
@@ -279,6 +279,11 @@ function pulseNewPiece(id) {
     if (piece.operator === 'multiply') return '<span class="operator-inline-label multiply-inline-label"><span class="operator-symbol multiply-times">×</span>' + factorHtml(piece.factor) + '</span>';
     if (piece.operator === 'divide') return '<span class="operator-inline-label divide-inline-label"><span class="operator-symbol divide-symbol">:</span>' + factorHtml(piece.divisor) + '</span>';
     return '?';
+  }
+
+  function operatorSubtype(piece) {
+    if (!piece || piece.kind !== "operator") return null;
+    return piece.operator || "add";
   }
 
   function operatorAria(piece) {

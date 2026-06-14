@@ -12,7 +12,7 @@
   function render(question) {
     return '' +
       '<section class="question-card subtract-card">' +
-        '<h2 class="question-title fusion-title">' + BP.Fraction.escapeHtml(question.prompt || 'Maak') + ' ' + BP.Fraction.html(question.target.numerator, question.target.denominator) + '</h2>' +
+        '<h2 class="question-title fusion-title">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt || 'Maak')) + ' ' + BP.Fraction.html(question.target.numerator, question.target.denominator) + '</h2>' +
         '<div class="subtract-arena" data-subtract-arena>' +
           '<div class="subtract-main-zone" data-main-zone></div>' +
           '<div class="subtract-remover-pool" data-remover-pool></div>' +
@@ -25,9 +25,9 @@
 
   function buildInstruction(question) {
     if (question && question.guidedConversion) {
-      return 'Sleep een wegneembubble op de grote bubble. Als de stukjes anders zijn, maakt het spel ze kort gelijk.';
+      return BP.I18n.text('Sleep een wegneembubble op de grote bubble. Als de stukjes anders zijn, maakt het spel ze kort gelijk.');
     }
-    return 'Sleep een wegneembubble op de grote bubble. Tikken mag ook.';
+    return BP.I18n.text('Sleep een wegneembubble op de grote bubble. Tikken mag ook.');
   }
 
   function mount(container, onAnswer, question, roundState, context) {
@@ -73,7 +73,7 @@
         return '' +
           '<div class="fusion-slot subtract-slot" data-remover-slot="' + slotIndex + '">' +
             '<button class="fusion-piece subtract-piece" data-remover-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="neem ' + piece.numerator + ' op ' + piece.denominator + ' weg">' +
-              BP.Bubble.skinImage(null, '', 'operator') +
+              BP.Bubble.skinImage(null, '', 'operator', 'subtract') +
               '<span class="operator-inline-label subtract-inline-label">' +
                 '<span class="operator-symbol minus-inline">−</span>' +
                 BP.Fraction.html(piece.numerator, piece.denominator) +
@@ -104,7 +104,7 @@
         },
         onMiss: function () {
           markRecentlyDragged();
-          setFeedback('', 'Laat de wegneembubble los boven de grote bubble.');
+          setFeedback('', BP.I18n.text('Laat de wegneembubble los boven de grote bubble.'));
         }
       });
     }
@@ -123,7 +123,7 @@
 
       var subtraction = subtractFractionsForQuestion(current, remover, question);
       if (!subtraction.ok) {
-        setFeedback('bad', subtraction.message || 'Dat kan hier nog niet.');
+        setFeedback('bad', subtraction.message || BP.I18n.text('Dat kan hier nog niet.'));
         recordMistake(remover);
         return;
       }
@@ -141,7 +141,7 @@
       var target = question.target;
       if (BP.Fraction.equals(current, target)) {
         solved = true;
-        setFeedback('good', 'Plop! Je maakte de doelbreuk.');
+        setFeedback('good', BP.I18n.text('Plop! Je maakte de doelbreuk.'));
         if (undoButton) undoButton.disabled = true;
         window.setTimeout(function () {
           onAnswer({ fraction: current });
@@ -150,12 +150,12 @@
       }
 
       if (isLessThan(current, target)) {
-        setFeedback('bad', 'Te klein. Tik ↶ om die wegneemactie terug te nemen.');
+        setFeedback('bad', BP.I18n.text('Te klein. Tik ↶ om die wegneemactie terug te nemen.'));
         recordMistake(remover || current);
         return;
       }
 
-      setFeedback('', 'Nu heb je ' + current.numerator + '/' + current.denominator + '. Neem nog iets weg of gebruik ↶.');
+      setFeedback('', BP.I18n.text('Nu heb je {value}. Neem nog iets weg of gebruik ↶.', { value: current.numerator + '/' + current.denominator }));
     }
 
     function undoLastMove() {
@@ -165,7 +165,7 @@
       removers = previous.removers;
       renderAll();
       clearConversion();
-      setFeedback('', 'Zet ongedaan. Probeer een andere wegneembubble.');
+      setFeedback('', BP.I18n.text('Zet ongedaan. Probeer een andere wegneembubble.'));
     }
 
     function isPointInMainZone(x, y) {
@@ -194,7 +194,7 @@
         return;
       }
       conversionNote.innerHTML = '' +
-        '<span>Stukjes gelijk:</span>' +
+        '<span>' + BP.I18n.text('stukjes gelijk') + ':</span>' +
         '<span class="fusion-arrow">−</span>' +
         BP.Fraction.html(subtraction.removerBefore.numerator, subtraction.removerBefore.denominator) +
         '<span class="fusion-arrow">→</span>' +
@@ -233,10 +233,10 @@
 
     if (!question || !question.guidedConversion) {
       if (Number(removerFraction.denominator) !== Number(currentFraction.denominator)) {
-        return { ok: false, message: 'Nog niet: in deze level trek je alleen weg met dezelfde noemer.' };
+        return { ok: false, message: BP.I18n.text('Nog niet: in deze level trek je alleen weg met dezelfde noemer.') };
       }
       var likeNumerator = Number(currentFraction.numerator) - Number(removerFraction.numerator);
-      if (likeNumerator < 0) return { ok: false, message: 'Dat is te veel weggenomen.' };
+      if (likeNumerator < 0) return { ok: false, message: BP.I18n.text('Dat is te veel weggenomen.') };
       return {
         ok: true,
         converted: false,
@@ -245,7 +245,7 @@
     }
 
     var commonDenominator = lcm(Number(currentFraction.denominator), Number(removerFraction.denominator));
-    if (!commonDenominator) return { ok: false, message: 'Deze bubbles passen niet goed samen.' };
+    if (!commonDenominator) return { ok: false, message: BP.I18n.text('Deze bubbles passen niet goed samen.') };
 
     var currentEquivalent = {
       numerator: Number(currentFraction.numerator) * (commonDenominator / Number(currentFraction.denominator)),
@@ -256,7 +256,7 @@
       denominator: commonDenominator
     };
     var nextNumerator = currentEquivalent.numerator - removerEquivalent.numerator;
-    if (nextNumerator < 0) return { ok: false, message: 'Dat is te veel weggenomen.' };
+    if (nextNumerator < 0) return { ok: false, message: BP.I18n.text('Dat is te veel weggenomen.') };
 
     return {
       ok: true,
