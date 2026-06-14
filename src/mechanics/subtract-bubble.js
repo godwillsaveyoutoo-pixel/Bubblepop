@@ -60,7 +60,7 @@
     function renderMainBubble() {
       mainZone.innerHTML = '' +
         '<div class="subtract-main-bubble" data-main-bubble>' +
-          BP.AssetManager.image("bubble.blue.idle", "") +
+          BP.Bubble.skinImage(null, '', 'normal') +
           BP.Fraction.html(current.numerator, current.denominator) +
         '</div>';
     }
@@ -73,7 +73,7 @@
         return '' +
           '<div class="fusion-slot subtract-slot" data-remover-slot="' + slotIndex + '">' +
             '<button class="fusion-piece subtract-piece" data-remover-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="neem ' + piece.numerator + ' op ' + piece.denominator + ' weg">' +
-              BP.AssetManager.image("bubble.blue.idle", "") +
+              BP.Bubble.skinImage(null, '', 'operator') +
               '<span class="operator-inline-label subtract-inline-label">' +
                 '<span class="operator-symbol minus-inline">−</span>' +
                 BP.Fraction.html(piece.numerator, piece.denominator) +

@@ -59,7 +59,7 @@
       var aria = isOperator ? ('deel door ' + operatorText(piece.divisor)) : (piece.numerator + ' op ' + piece.denominator);
       return '' +
         '<button class="fusion-piece divide-piece' + (isOperator ? ' divide-operator-piece' : ' divide-fraction-piece') + '" data-piece-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="' + BP.Fraction.escapeHtml(aria) + '">' +
-          BP.AssetManager.image("bubble.blue.idle", "") +
+          BP.Bubble.skinImage(null, '', isOperator ? 'operator' : 'normal') +
           '<span class="divide-piece-label">' + label + '</span>' +
         '</button>';
     }

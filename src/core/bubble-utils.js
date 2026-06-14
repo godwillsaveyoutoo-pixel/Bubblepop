@@ -9,6 +9,7 @@
     installDrag: installDrag,
     pulsePiece: pulsePiece,
     resetDragStyle: resetDragStyle,
+    skinImage: skinImage,
     setFeedback: setFeedback,
     setUndoDisabled: setUndoDisabled,
     uid: uid
@@ -51,6 +52,11 @@
     if (!button) return;
     button.style.transform = '';
     button.style.zIndex = '';
+  }
+
+  function skinImage(assetId, alt, kind) {
+    var fallback = BP.Theme && BP.Theme.bubbleSkin ? BP.Theme.bubbleSkin(kind) : 'bubble.blue.idle';
+    return BP.AssetManager.image(assetId || fallback, alt || '', 'bubble-skin-img');
   }
 
   function pulsePiece(container, id, options) {

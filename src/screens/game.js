@@ -14,7 +14,8 @@
         };
       }
 
-      BP.AssetManager.preload([setup.pack.backgroundAsset || "skill.fractions.bg.game", "bubble.blue.idle"]);
+      BP.Theme.setActivePack(setup.pack);
+      BP.Theme.preloadForPack(setup.pack);
       var round = BP.RoundEngine.create({
         skillId: setup.pack.id,
         levelId: setup.level.id,
@@ -32,7 +33,7 @@
         }
         return '' +
           '<main class="screen game-screen">' +
-            '<div class="screen-bg" style="background-image:url(' + BP.AssetManager.resolve(setup.pack.backgroundAsset || "skill.fractions.bg.game") + ')"></div>' +
+            BP.Theme.backgroundHtml(setup.pack) +
             '<div class="screen-inner">' +
               '<header class="game-hud">' +
                 '<button class="icon-button" data-action="levels">←</button>' +

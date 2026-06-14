@@ -65,7 +65,7 @@
         return '' +
           '<div class="fusion-slot" data-fusion-slot="' + slotIndex + '">' +
             '<button class="fusion-piece" data-piece-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="' + piece.numerator + ' op ' + piece.denominator + '">' +
-              BP.AssetManager.image("bubble.blue.idle", "") +
+              BP.Bubble.skinImage() +
               BP.Fraction.html(piece.numerator, piece.denominator) +
             '</button>' +
           '</div>';

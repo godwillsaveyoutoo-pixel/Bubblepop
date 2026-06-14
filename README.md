@@ -1,4 +1,4 @@
-# BubblePop2 MVP v19
+# BubblePop2 MVP v34 — PNG asset layer v19
 
 Nieuw in deze versie:
 
@@ -126,3 +126,15 @@ De fullscreenknop staat nu ook zichtbaar in de onderbalk als `⛶ Volledig scher
 ## v33 progress locking
 
 Levels are now dynamically locked: level 1 is open, and each next level unlocks only after the previous level has been completed. The level screen, direct game routing, result screen next-level button, and home continue button all use the same central Progress rules.
+
+## v34 — PNG asset integration layer
+
+Deze versie voegt een visuele asset-laag toe zonder de spelinhoud te wijzigen:
+
+- `src/core/theme.js` beheert achtergrond, bubble-skin, operatorbubble-skin en pop-effect per wereld/contentpack.
+- `src/core/asset-manager.js` heeft nu `cssUrl(...)` zodat CSS-variabelen veilig uit het asset-manifest komen.
+- `src/core/bubble-utils.js` heeft `skinImage(...)`, zodat fusion-mechanics niet langer rechtstreeks naar één vaste bubble-PNG verwijzen.
+- `styles/game/09-asset-skins.css` laat HTML/CSS-bubbles een PNG-huid gebruiken, terwijl breuken/tekst HTML blijven.
+- `fractions.js` bevat nu een `theme`-blok voor toekomstige wereldskins.
+
+Belangrijke regel: PNG’s mogen geen breuken, tekst of getallen bevatten. De PNG is alleen de visuele huid; labels blijven dynamisch in HTML/CSS.

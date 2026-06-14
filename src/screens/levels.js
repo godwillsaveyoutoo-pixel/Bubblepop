@@ -8,7 +8,7 @@
       return {
         html: '' +
           '<main class="screen levels-screen">' +
-            '<div class="screen-bg" style="background-image:url(' + BP.AssetManager.resolve(pack.backgroundAsset || "skill.fractions.bg.game") + ')"></div>' +
+            BP.Theme.backgroundHtml(pack) +
             '<div class="screen-inner">' +
               '<div class="top-row">' +
                 '<button class="icon-button" data-action="skills">←</button>' +

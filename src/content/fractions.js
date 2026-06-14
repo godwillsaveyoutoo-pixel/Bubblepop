@@ -6,6 +6,12 @@
     id: "fractions",
     title: "Breukenzee",
     backgroundAsset: "skill.fractions.bg.game",
+    theme: {
+      background: "skill.fractions.bg.game",
+      bubbleSkin: "bubble.blue.idle",
+      operatorBubbleSkin: "bubble.operator.idle",
+      popEffect: "fx.pop.correct"
+    },
     levels: [
       {
         id: "fractions.visual.01",

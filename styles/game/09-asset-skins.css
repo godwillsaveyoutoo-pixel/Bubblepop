@@ -1,0 +1,57 @@
+/* v34 — PNG asset skin layer.
+   Gameplay keeps text/fractions as HTML; PNGs only skin bubbles, backgrounds and effects. */
+.screen {
+  --bp-bg-image: none;
+  --bp-bubble-image: none;
+  --bp-operator-bubble-image: var(--bp-bubble-image);
+  --bp-pop-fx-image: none;
+}
+.screen-bg {
+  background-image: var(--bp-bg-image);
+}
+
+/* HTML/CSS bubbles can be skinned with a transparent PNG without putting text in the image. */
+.choice-bubble,
+.line-drag-bubble,
+.line-fraction-bubble,
+.quantity-target-bubble,
+.value-target-bubble,
+.value-fusion-piece {
+  background-image:
+    var(--bp-bubble-image),
+    radial-gradient(circle at 32% 24%, rgba(255,255,255,0.98), rgba(184,245,255,0.74) 32%, rgba(75,184,223,0.48) 66%, rgba(31,109,154,0.34));
+  background-size: contain, auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.quantity-pearl {
+  background-image:
+    var(--bp-bubble-image),
+    radial-gradient(circle at 32% 25%, rgba(255,255,255,0.96), rgba(133,230,255,0.77) 42%, rgba(25,117,178,0.7));
+  background-size: contain, auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Button-based fusion pieces already render an img; make that img replaceable by theme helpers. */
+.bubble-skin-img {
+  pointer-events: none;
+}
+.operator-mix-operator-piece .bubble-skin-img,
+.multiply-operator-piece .bubble-skin-img,
+.divide-operator-piece .bubble-skin-img,
+.subtract-piece .subtract-bubble .bubble-skin-img,
+.signed-piece.signed-negative .bubble-skin-img {
+  filter: drop-shadow(0 13px 23px rgba(0,0,0,0.28)) hue-rotate(24deg) saturate(1.12);
+}
+
+/* Pop/glow can later be replaced by a sprite; for now keep CSS fallback. */
+.choice-bubble.correct,
+.choice-bubble.popped,
+.fusion-piece.just-fused,
+.line-drag-bubble.correct,
+.quantity-success,
+.value-fusion-piece.correct {
+  --bp-pop-active: var(--bp-pop-fx-image);
+}

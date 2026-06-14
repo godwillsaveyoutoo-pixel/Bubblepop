@@ -7,6 +7,18 @@
       type: "bubble",
       preload: true
     },
+    "bubble.operator.idle": {
+      src: "assets/bubbles/bubble-blue-idle.png",
+      type: "bubble",
+      role: "operator",
+      preload: true
+    },
+    "bubble.quantity.pearl": {
+      src: "assets/bubbles/bubble-blue-idle.png",
+      type: "bubble",
+      role: "quantity",
+      preload: true
+    },
     "skill.fractions.icon": {
       src: "assets/skills/fractions/icon-fractions.png",
       type: "icon",

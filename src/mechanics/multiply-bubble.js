@@ -59,7 +59,7 @@
       var aria = isOperator ? ('maal ' + operatorText(piece.factor)) : (piece.numerator + ' op ' + piece.denominator);
       return '' +
         '<button class="fusion-piece multiply-piece' + (isOperator ? ' multiply-operator-piece' : ' multiply-fraction-piece') + '" data-piece-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="' + BP.Fraction.escapeHtml(aria) + '">' +
-          BP.AssetManager.image("bubble.blue.idle", "") +
+          BP.Bubble.skinImage(null, '', isOperator ? 'operator' : 'normal') +
           '<span class="multiply-piece-label">' + label + '</span>' +
         '</button>';
     }

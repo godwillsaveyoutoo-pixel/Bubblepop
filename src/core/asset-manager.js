@@ -6,6 +6,7 @@
   BP.AssetManager = {
     resolve: resolve,
     image: image,
+    cssUrl: cssUrl,
     preload: preload,
     preloadByFlag: preloadByFlag
   };
@@ -19,9 +20,16 @@
     return record.src;
   }
 
-  function image(assetId, alt) {
+  function image(assetId, alt, className) {
     var src = resolve(assetId);
-    return '<img src="' + escapeAttr(src) + '" alt="' + escapeAttr(alt || "") + '" />';
+    var cls = className ? ' class="' + escapeAttr(className) + '"' : '';
+    return '<img src="' + escapeAttr(src) + '" alt="' + escapeAttr(alt || "") + '"' + cls + ' />';
+  }
+
+  function cssUrl(assetId) {
+    var src = resolve(assetId);
+    if (!src) return 'none';
+    return 'url("' + escapeCssUrl(src) + '")';
   }
 
   function preload(assetIds) {
@@ -48,5 +56,12 @@
 
   function escapeAttr(value) {
     return String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  }
+
+  function escapeCssUrl(value) {
+    return String(value)
+      .replace(/\\/g, "\\\\")
+      .replace(/"/g, '\\"')
+      .replace(/\n/g, '');
   }
 })();

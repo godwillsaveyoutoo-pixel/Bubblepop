@@ -60,7 +60,7 @@
       var aria = isOperator ? operatorAria(piece) : (piece.numerator + ' op ' + piece.denominator);
       return '' +
         '<button class="fusion-piece operator-mix-piece' + css + '" data-piece-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="' + BP.Fraction.escapeHtml(aria) + '">' +
-          BP.AssetManager.image("bubble.blue.idle", "") +
+          BP.Bubble.skinImage(null, '', isOperator ? 'operator' : 'normal') +
           '<span class="operator-mix-piece-label">' + label + '</span>' +
         '</button>';
     }

@@ -12,7 +12,7 @@
       return {
         html: '' +
           '<main class="screen">' +
-            '<div class="screen-bg" style="background-image:url(' + BP.AssetManager.resolve("skill.fractions.bg.game") + ')"></div>' +
+            BP.Theme.backgroundHtml('skill.fractions.bg.game') +
             '<div class="screen-inner">' +
               '<div class="top-row">' +
                 '<span class="pill">Gastmodus</span>' +

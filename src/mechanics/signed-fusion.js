@@ -48,7 +48,7 @@
         return '' +
           '<div class="fusion-slot" data-signed-slot="' + slotIndex + '">' +
             '<button class="fusion-piece signed-piece' + (negative ? ' negative-piece' : '') + '" data-piece-id="' + BP.Fraction.escapeHtml(piece.id) + '" aria-label="' + signedAria(piece) + '">' +
-              BP.AssetManager.image("bubble.blue.idle", "") +
+              BP.Bubble.skinImage(null, '', negative ? 'operator' : 'normal') +
               '<span class="operator-inline-label signed-inline-label">' +
                 (negative ? '<span class="operator-symbol minus-inline">−</span>' : '') +
                 BP.Fraction.html(absNum, piece.denominator) +
