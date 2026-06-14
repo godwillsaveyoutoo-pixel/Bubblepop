@@ -1,0 +1,76 @@
+.app-shell {
+  min-height: 100dvh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.screen {
+  width: min(100%, 460px);
+  min-height: min(820px, calc(100dvh - 32px));
+  border-radius: 34px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.07));
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.screen-inner {
+  min-height: inherit;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+  z-index: 1;
+}
+.screen-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.72;
+  transform: scale(1.01);
+}
+.screen-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4,20,35,0.12), rgba(4,20,35,0.58));
+}
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.spacer { flex: 1; }
+
+
+/* Long level paths must stay usable on small screens. */
+.levels-screen {
+  height: min(820px, calc(100dvh - 32px));
+  min-height: 0;
+}
+.levels-screen .screen-inner {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.levels-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding-right: 6px;
+  padding-bottom: 24px;
+  margin-right: -6px;
+  scroll-padding-bottom: 24px;
+}
+.levels-list::after {
+  content: "";
+  display: block;
+  min-height: 8px;
+}

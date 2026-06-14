@@ -1,0 +1,97 @@
+.app-title {
+  font-size: clamp(2.35rem, 12vw, 3.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.08em;
+  margin: 0;
+}
+.subtitle { color: var(--muted); margin: 0; font-size: 1rem; }
+.card {
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: var(--radius-xl);
+  padding: 16px;
+  backdrop-filter: blur(14px);
+}
+.primary-button, .ghost-button, .icon-button {
+  border: 0;
+  border-radius: 999px;
+  min-height: 54px;
+  padding: 0 22px;
+  color: #092033;
+  background: linear-gradient(180deg, #ffffff, #bff4ff);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  font-weight: 800;
+}
+.primary-button { width: 100%; font-size: 1.08rem; }
+.ghost-button {
+  background: rgba(255,255,255,0.14);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: none;
+}
+.icon-button {
+  min-width: 46px;
+  min-height: 46px;
+  padding: 0 14px;
+  background: rgba(255,255,255,0.14);
+  color: var(--text);
+  box-shadow: none;
+}
+.skill-card, .level-card {
+  width: 100%;
+  border: 0;
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  text-align: left;
+  color: var(--text);
+  background: var(--panel);
+  border-radius: var(--radius-xl);
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.skill-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.12);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.skill-icon img { width: 100%; height: 100%; object-fit: cover; }
+.skill-title, .level-title { font-weight: 900; font-size: 1.03rem; }
+.skill-meta, .level-meta { color: var(--muted); font-size: 0.86rem; margin-top: 3px; }
+.progress-track {
+  display: block;
+  height: 10px;
+  width: 100%;
+  background: rgba(255,255,255,0.14);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.progress-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  width: 0%;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.14);
+  color: var(--text);
+  font-weight: 800;
+  font-size: 0.84rem;
+}
+.result-number {
+  font-size: 4rem;
+  font-weight: 950;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+}

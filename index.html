@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>BubblePop Wiskunde 2</title>
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/game.css" />
+</head>
+<body>
+  <div id="app" class="app-shell" aria-live="polite"></div>
+
+  <!-- No ES modules, no fetch: this keeps the prototype easy to open from file:// on Linux/Android. -->
+  <script src="src/data/assets.js"></script>
+  <script src="src/content/skills.js"></script>
+  <script src="src/content/fractions.js"></script>
+
+  <script src="src/core/store.js"></script>
+  <script src="src/core/asset-manager.js"></script>
+  <script src="src/core/progress.js"></script>
+  <script src="src/core/router.js"></script>
+  <script src="src/core/fraction-utils.js"></script>
+  <script src="src/core/visual-fraction.js"></script>
+  <script src="src/core/round-engine.js"></script>
+
+  <script src="src/mechanics/tap-choice.js"></script>
+  <script src="src/mechanics/choose-representation.js"></script>
+  <script src="src/mechanics/fill-fraction.js"></script>
+  <script src="src/mechanics/parts-count.js"></script>
+  <script src="src/mechanics/equivalent-choice.js"></script>
+  <script src="src/mechanics/merge-to-target.js"></script>
+  <script src="src/mechanics/bubble-fusion.js"></script>
+  <script src="src/mechanics/subtract-bubble.js"></script>
+  <script src="src/mechanics/more-than-one.js"></script>
+  <script src="src/mechanics/signed-fusion.js"></script>
+  <script src="src/mechanics/quantity-fraction.js"></script>
+  <script src="src/mechanics/multiply-bubble.js"></script>
+  <script src="src/mechanics/divide-bubble.js"></script>
+  <script src="src/mechanics/operator-mix.js"></script>
+  <script src="src/mechanics/value-form-choice.js"></script>
+  <script src="src/mechanics/transform-fraction.js"></script>
+  <script src="src/mechanics/number-line-drag.js"></script>
+
+  <script src="src/screens/home.js"></script>
+  <script src="src/screens/skills.js"></script>
+  <script src="src/screens/levels.js"></script>
+  <script src="src/screens/game.js"></script>
+  <script src="src/screens/result.js"></script>
+
+  <script src="src/app.js"></script>
+</body>
+</html>
