@@ -108,3 +108,16 @@ v31 code review cleanup:
 - Level 1 antwoordbubbles en getallenas-bubbles zijn rond gemaakt.
 - Nummerkeuzes in teller/noemer krijgen op mobiel 2 kolommen i.p.v. een krappe rij.
 - Getallenas krijgt meer horizontale ruimte binnen het spelvenster.
+
+
+## v32.1 visible fullscreen
+
+De fullscreenknop staat nu ook zichtbaar in de onderbalk als `⛶ Volledig scherm`. Op kleine smartphones wordt de kleine HUD-knop bovenaan verborgen, zodat de knop onderaan duidelijker is.
+
+
+## v32.2 double-tap fullscreen
+
+- De zichtbare fullscreenknoppen zijn verwijderd.
+- Fullscreen werkt nu via dubbel tikken/dubbel klikken op menu-schermen: Home, Skills, Levels en Resultaat.
+- Dubbel tikken op gewone knoppen wordt genegeerd, zodat navigatie niet per ongeluk fullscreen activeert.
+- In het spel zelf staat geen extra fullscreenknop meer.

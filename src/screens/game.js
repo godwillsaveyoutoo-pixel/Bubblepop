@@ -38,7 +38,6 @@
                 '<button class="icon-button" data-action="levels">←</button>' +
                 '<span class="pill" data-hud-score>Score ' + roundState.score + ' · Streak ' + roundState.streak + '</span>' +
                 '<span class="pill">' + (roundState.index + 1) + '/' + roundState.total + '</span>' +
-                '<button class="icon-button fullscreen-button" data-action="fullscreen" type="button" aria-label="Fullscreen">⛶</button>' +
               '</header>' +
               '<div id="mechanic-root">' + mechanic.render(question, roundState) + '</div>' +
               '<div class="spacer"></div>' +
@@ -106,9 +105,6 @@
     root.querySelector('[data-action="home"]').addEventListener('click', function () {
       BP.Router.go('home');
     });
-    if (BP.Fullscreen) {
-      BP.Fullscreen.bindButton(root.querySelector('[data-action="fullscreen"]'));
-    }
   }
 
   function bindMechanic(root, round, setup, makeHtml) {

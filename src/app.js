@@ -3,7 +3,11 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     BP.AssetManager.preloadByFlag().finally(function () {
-      BP.Router.init(document.getElementById('app'));
+      var appRoot = document.getElementById('app');
+      BP.Router.init(appRoot);
+      if (BP.Fullscreen && BP.Fullscreen.bindMenuDoubleTap) {
+        BP.Fullscreen.bindMenuDoubleTap(appRoot);
+      }
     });
   });
 })();
