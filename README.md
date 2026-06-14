@@ -230,3 +230,10 @@ Belangrijke regel: PNG’s mogen geen breuken, tekst of getallen bevatten. De PN
 - fraction-visual achtergrond, border en shadow geforceerd uitgezet in prompt bubbles
 - visual-piece-wrap in prompt bubbles transparant gemaakt
 - alleen de eigenlijke visual blijft zichtbaar in de bubble
+
+
+## v48 — prompt visual visibility restore
+- alleen de grote vierkante wrapper blijft weg
+- de eigenlijke bar/circle tray is terug zichtbaar
+- opgavevisual opnieuw duidelijk zichtbaar in de bubble
+- visuele grootte afgestemd op de opgavebubble

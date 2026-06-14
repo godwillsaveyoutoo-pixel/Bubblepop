@@ -606,3 +606,51 @@
   justify-self: center;
   align-self: center;
 }
+
+
+/* v48 — keep the actual visual visible while removing only the large square wrapper */
+.prompt-visual-bubble .fraction-visual,
+.prompt-visual-bubble .fraction-visual.large {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+/* Restore the inner visual tray so the exercise remains visible */
+.prompt-visual-bubble .visual-piece-wrap {
+  display: grid !important;
+  background: rgba(6,34,54,0.26) !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  box-shadow: inset 0 8px 18px rgba(0,0,0,0.14) !important;
+  padding: 5px !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+}
+.prompt-visual-bubble .visual-bar {
+  width: min(132px, 100%) !important;
+  height: 44px !important;
+  border-radius: 18px !important;
+  gap: 3px !important;
+}
+.prompt-visual-bubble .visual-circle {
+  width: 96px !important;
+  height: 96px !important;
+}
+.prompt-visual-bubble .visual-circle-grid {
+  width: 78% !important;
+  height: 78% !important;
+}
+@media (max-width: 390px) {
+  .prompt-visual-bubble .visual-bar {
+    width: min(118px, 100%) !important;
+    height: 40px !important;
+  }
+  .prompt-visual-bubble .visual-circle {
+    width: 88px !important;
+    height: 88px !important;
+  }
+}
