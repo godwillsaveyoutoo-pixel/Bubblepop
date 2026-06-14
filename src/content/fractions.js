@@ -486,28 +486,6 @@
     };
   }
 
-  function qLineOrder(prompt, rawFractions, tickDenominator) {
-    return {
-      prompt: prompt,
-      mode: "order",
-      tickDenominator: tickDenominator || rawFractions.reduce(function (max, item) { return Math.max(max, item[1]); }, 1),
-      verticalTolerance: 58,
-      items: shuffle(rawFractions.map(function (item, index) {
-        return {
-          id: "order-" + index + "-" + item[0] + "-" + item[1],
-          numerator: item[0],
-          denominator: item[1]
-        };
-      })),
-      answer: {
-        type: "number-line-order",
-        items: rawFractions.map(function (item) {
-          return { numerator: item[0], denominator: item[1] };
-        })
-      }
-    };
-  }
-
   function qAddLike(prompt, operands, target, rawPieces) {
     return {
       prompt: prompt,
@@ -810,50 +788,7 @@
     question.mechanic = mechanic;
     return question;
   }
-
-  function qTransform(prompt, start, target, rawFactors) {
-    return {
-      prompt: prompt,
-      start: {
-        numerator: start[0],
-        denominator: start[1]
-      },
-      target: {
-        numerator: target[0],
-        denominator: target[1]
-      },
-      answer: {
-        type: "fraction-exact",
-        numerator: target[0],
-        denominator: target[1]
-      },
-      operators: shuffle((rawFactors || [2, 3, 4]).map(function (factor, index) {
-        return {
-          id: "split-" + index + "-x" + factor,
-          factor: factor
-        };
-      }))
-    };
-  }
-
-  function qMerge(prompt, target, rawPieces, count) {
-    return {
-      prompt: prompt,
-      target: {
-        numerator: target[0],
-        denominator: target[1]
-      },
-      answer: {
-        type: "fraction-sum",
-        numerator: target[0],
-        denominator: target[1],
-        count: count || 2
-      },
-      pieces: makePieces(rawPieces)
-    };
-  }
-
-  function makePieces(rawPieces) {
+function makePieces(rawPieces) {
     return shuffle(rawPieces.map(function (item, index) {
       return {
         id: "p" + index + "-" + item[0] + "-" + item[1],

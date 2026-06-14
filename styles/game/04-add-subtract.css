@@ -1,0 +1,269 @@
+/* BubblePop2 v10 — optellen met gelijke noemers */
+.add-card .fusion-title {
+  margin-bottom: 0;
+}
+.add-operation {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  align-self: center;
+  padding: 8px 14px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.18);
+  font-weight: 950;
+}
+.add-operation .fraction {
+  color: var(--text);
+  font-size: 1.16rem;
+  min-width: 34px;
+  text-shadow: none;
+}
+.add-operation .fraction-line {
+  background: var(--text);
+  height: 3px;
+}
+.add-sign {
+  color: var(--text);
+  font-size: 1.35rem;
+  font-weight: 950;
+  opacity: 0.9;
+}
+.add-question {
+  color: var(--text);
+  font-size: 1.55rem;
+  font-weight: 950;
+  line-height: 1;
+}
+@media (max-width: 390px) {
+  .add-operation { gap: 8px; padding: 7px 10px; }
+  .add-operation .fraction { font-size: 1rem; }
+  .add-sign { font-size: 1.12rem; }
+}
+
+/* BubblePop2 v11 — aftrekken met wegneembubbles */
+.subtract-card {
+  min-height: clamp(438px, 64vh, 560px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: start;
+  overflow: hidden;
+}
+.subtract-arena {
+  min-height: clamp(270px, 42vh, 350px);
+  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background:
+    radial-gradient(circle at 50% 30%, rgba(126,231,255,0.17), rgba(255,255,255,0.07) 45%, rgba(0,0,0,0.05)),
+    rgba(255,255,255,0.08);
+  display: grid;
+  grid-template-rows: minmax(120px, auto) minmax(128px, auto);
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  box-shadow: inset 0 14px 30px rgba(0,0,0,0.12);
+}
+.subtract-main-zone {
+  min-height: 128px;
+  display: grid;
+  place-items: center;
+  border-radius: 30px;
+  border: 2px dashed rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.08);
+}
+.subtract-main-bubble {
+  width: min(128px, 36vw);
+  min-height: min(128px, 36vw);
+  border: 0;
+  background: transparent;
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+.subtract-main-bubble img {
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 26px rgba(0,0,0,0.28));
+  z-index: -1;
+}
+.subtract-main-bubble .fraction {
+  font-size: 1.52rem;
+}
+.subtract-main-bubble.just-subtracted {
+  animation: bp-subtract-pop 390ms ease;
+}
+.subtract-remover-pool {
+  width: 100%;
+  min-height: 124px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  place-items: center;
+  gap: 8px;
+}
+.subtract-slot {
+  width: min(112px, 100%);
+  min-height: 102px;
+}
+.subtract-piece img {
+  filter: drop-shadow(0 13px 23px rgba(0,0,0,0.26)) hue-rotate(105deg) saturate(0.75) brightness(0.92);
+  opacity: 0.9;
+}
+.subtract-piece .fraction {
+  color: #081626;
+}
+.minus-badge {
+  position: absolute;
+  top: 9px;
+  right: 16px;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(6,34,54,0.72);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.22);
+}
+@keyframes bp-subtract-pop {
+  0% { transform: scale(1); }
+  42% { transform: scale(0.92); filter: drop-shadow(0 0 26px rgba(255,255,255,0.38)); }
+  100% { transform: scale(1); }
+}
+@media (max-width: 390px) {
+  .subtract-card { min-height: 418px; gap: 10px; }
+  .subtract-arena { min-height: 260px; grid-template-rows: 112px 118px; }
+  .subtract-main-zone { min-height: 112px; }
+  .subtract-main-bubble { width: 104px; min-height: 104px; }
+  .subtract-main-bubble .fraction { font-size: 1.28rem; }
+  .subtract-remover-pool { min-height: 110px; }
+  .subtract-slot { min-height: 94px; }
+  .minus-badge { top: 8px; right: 13px; width: 23px; height: 23px; font-size: 1.08rem; }
+}
+
+/* BubblePop2 v12 — Level 9: dezelfde stukjes maken door te splitten */
+.transform-card {
+  min-height: clamp(438px, 64vh, 560px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: start;
+  overflow: hidden;
+}
+.transform-arena {
+  min-height: clamp(270px, 42vh, 350px);
+  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background:
+    radial-gradient(circle at 50% 30%, rgba(126,231,255,0.17), rgba(255,255,255,0.07) 45%, rgba(0,0,0,0.05)),
+    rgba(255,255,255,0.08);
+  display: grid;
+  grid-template-rows: minmax(128px, auto) minmax(124px, auto);
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  box-shadow: inset 0 14px 30px rgba(0,0,0,0.12);
+}
+.transform-main-zone {
+  min-height: 132px;
+  display: grid;
+  place-items: center;
+  border-radius: 30px;
+  border: 2px dashed rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.08);
+}
+.transform-current-wrap {
+  display: grid;
+  place-items: center;
+}
+.transform-current-bubble {
+  width: min(128px, 36vw);
+  min-height: min(128px, 36vw);
+  border: 0;
+  background: transparent;
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+.transform-current-bubble img {
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 26px rgba(0,0,0,0.28));
+  z-index: -1;
+}
+.transform-current-bubble .fraction {
+  font-size: 1.52rem;
+}
+.transform-current-bubble.just-transformed {
+  animation: bp-transform-pop 390ms ease;
+}
+.transform-operator-pool {
+  width: 100%;
+  min-height: 124px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  place-items: center;
+  gap: 8px;
+}
+.transform-slot {
+  width: min(112px, 100%);
+  min-height: 102px;
+}
+.transform-operator img {
+  filter: drop-shadow(0 13px 23px rgba(0,0,0,0.26)) hue-rotate(44deg) saturate(0.95) brightness(1.03);
+  opacity: 0.93;
+}
+.transform-operator .operator-label {
+  color: #081626;
+  font-size: 0.82rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transform: translateY(15px);
+}
+.split-badge {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 42px;
+  min-height: 30px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.72);
+  color: #081626;
+  font-size: 1.1rem;
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: 0 7px 14px rgba(0,0,0,0.16);
+}
+@keyframes bp-transform-pop {
+  0% { transform: scale(1); }
+  42% { transform: scale(1.08); filter: drop-shadow(0 0 26px rgba(126,255,178,0.34)); }
+  100% { transform: scale(1); }
+}
+@media (max-width: 390px) {
+  .transform-card { min-height: 418px; gap: 10px; }
+  .transform-arena { min-height: 260px; grid-template-rows: 112px 118px; }
+  .transform-main-zone { min-height: 112px; }
+  .transform-current-bubble { width: 104px; min-height: 104px; }
+  .transform-current-bubble .fraction { font-size: 1.28rem; }
+  .transform-operator-pool { min-height: 110px; }
+  .transform-slot { min-height: 94px; }
+  .split-badge { top: 16px; min-width: 38px; min-height: 28px; font-size: 1rem; }
+  .transform-operator .operator-label { font-size: 0.74rem; }
+}
+

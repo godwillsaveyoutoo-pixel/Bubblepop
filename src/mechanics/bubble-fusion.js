@@ -42,7 +42,7 @@
     var feedback = container.querySelector('[data-fusion-feedback]');
     var conversionNote = container.querySelector('[data-fusion-conversion-note]');
     var undoButton = context && context.root ? context.root.querySelector('[data-action="undo"]') : null;
-    var pieces = clonePieces(question.pieces || []);
+    var pieces = BP.Bubble.clonePieces(question.pieces || []);
     var history = [];
     var selectedId = null;
     var solved = false;
@@ -98,54 +98,23 @@
     }
 
     function installPointerDrag(button, id) {
-      var drag = null;
-
-      button.addEventListener('pointerdown', function (event) {
-        if (solved) return;
-        drag = {
-          pointerId: event.pointerId,
-          startX: event.clientX,
-          startY: event.clientY,
-          moved: false
-        };
-        button.setPointerCapture(event.pointerId);
-        button.classList.add('dragging');
-      });
-
-      button.addEventListener('pointermove', function (event) {
-        if (!drag || drag.pointerId !== event.pointerId) return;
-        var dx = event.clientX - drag.startX;
-        var dy = event.clientY - drag.startY;
-        if (Math.abs(dx) + Math.abs(dy) > 6) drag.moved = true;
-        if (drag.moved) {
-          button.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(1.08)';
-          button.style.zIndex = 30;
-        }
-      });
-
-      button.addEventListener('pointerup', function (event) {
-        if (!drag || drag.pointerId !== event.pointerId) return;
-        var wasMoved = drag.moved;
-        drag = null;
-        button.classList.remove('dragging');
-        resetDragStyle(button);
-
-        if (!wasMoved) return;
-        recentlyDragged = true;
-        window.setTimeout(function () { recentlyDragged = false; }, 180);
-        var targetButton = findPieceButtonAt(event.clientX, event.clientY, id);
-        if (targetButton) {
-          fuse(id, targetButton.getAttribute('data-piece-id'));
-        } else {
+      BP.Bubble.installDrag(button, id, {
+        disabled: function () { return solved; },
+        container: pool,
+        onDrop: function (sourceId, targetId) {
+          markRecentlyDragged();
+          fuse(sourceId, targetId);
+        },
+        onMiss: function () {
+          markRecentlyDragged();
           setFeedback('', 'Laat een bubble los boven een andere bubble.');
         }
       });
+    }
 
-      button.addEventListener('pointercancel', function () {
-        drag = null;
-        button.classList.remove('dragging');
-        resetDragStyle(button);
-      });
+    function markRecentlyDragged() {
+      recentlyDragged = true;
+      window.setTimeout(function () { recentlyDragged = false; }, 180);
     }
 
     function fuse(idA, idB) {
@@ -157,7 +126,7 @@
       var b = pieces[indexB];
       if (!a || !b) return;
 
-      history.push(clonePieces(pieces));
+      history.push(BP.Bubble.clonePieces(pieces));
       var fusion = fuseFractionsForQuestion(a, b, question);
       var sum = fusion.result;
       var newPiece = {
@@ -207,12 +176,7 @@
       setFeedback('', 'Zet ongedaan. Probeer een andere versmelting.');
       clearConversion();
     }
-
-    function findPiece(id) {
-      return pieces.find(function (piece) { return piece && piece.id === id; }) || null;
-    }
-
-    function findPieceIndex(id) {
+function findPieceIndex(id) {
       for (var i = 0; i < pieces.length; i += 1) {
         if (pieces[i] && pieces[i].id === id) return i;
       }
@@ -222,28 +186,12 @@
     function ensureSlots() {
       pieces = pieces.map(function (piece) { return piece || null; });
     }
-
-    function findPieceButtonAt(x, y, ignoreId) {
-      var buttons = Array.prototype.slice.call(pool.querySelectorAll('[data-piece-id]'));
-      return buttons.find(function (button) {
-        var id = button.getAttribute('data-piece-id');
-        if (id === ignoreId) return false;
-        var rect = button.getBoundingClientRect();
-        return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
-      }) || null;
-    }
-
-    function pulseNewPiece(id) {
-      var button = pool.querySelector('[data-piece-id="' + cssEscape(id) + '"]');
-      if (!button) return;
-      button.classList.add('just-fused');
-      window.setTimeout(function () { button.classList.remove('just-fused'); }, 420);
+function pulseNewPiece(id) {
+      BP.Bubble.pulsePiece(pool, id);
     }
 
     function setFeedback(className, text) {
-      if (!feedback) return;
-      feedback.className = 'feedback ' + className;
-      feedback.textContent = text;
+      BP.Bubble.setFeedback(feedback, className, text);
     }
 
     function setUndoState() {
@@ -338,23 +286,8 @@
     }
     return a || 1;
   }
-
-  function clonePieces(list) {
-    return JSON.parse(JSON.stringify(list || []));
-  }
-
-  function resetDragStyle(button) {
-    button.style.transform = '';
-    button.style.zIndex = '';
-  }
-
-  function isGreaterThan(a, b) {
+function isGreaterThan(a, b) {
     if (!a || !b) return false;
     return a.numerator * b.denominator > b.numerator * a.denominator;
-  }
-
-  function cssEscape(value) {
-    if (window.CSS && typeof window.CSS.escape === 'function') return window.CSS.escape(value);
-    return String(value).replace(/"/g, '\\"');
   }
 })();

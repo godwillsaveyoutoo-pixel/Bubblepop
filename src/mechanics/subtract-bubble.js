@@ -38,7 +38,7 @@
     var undoButton = context && context.root ? context.root.querySelector('[data-action="undo"]') : null;
 
     var current = cloneFraction(question.start);
-    var removers = clonePieces(question.removers || []);
+    var removers = BP.Bubble.clonePieces(question.removers || []);
     var history = [];
     var solved = false;
     var lastMistakeKey = null;
@@ -95,54 +95,23 @@
     }
 
     function installPointerDrag(button, id) {
-      var drag = null;
-
-      button.addEventListener('pointerdown', function (event) {
-        if (solved) return;
-        drag = {
-          pointerId: event.pointerId,
-          startX: event.clientX,
-          startY: event.clientY,
-          moved: false
-        };
-        button.setPointerCapture(event.pointerId);
-        button.classList.add('dragging');
-      });
-
-      button.addEventListener('pointermove', function (event) {
-        if (!drag || drag.pointerId !== event.pointerId) return;
-        var dx = event.clientX - drag.startX;
-        var dy = event.clientY - drag.startY;
-        if (Math.abs(dx) + Math.abs(dy) > 6) drag.moved = true;
-        if (drag.moved) {
-          button.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(1.08)';
-          button.style.zIndex = 30;
-        }
-      });
-
-      button.addEventListener('pointerup', function (event) {
-        if (!drag || drag.pointerId !== event.pointerId) return;
-        var wasMoved = drag.moved;
-        drag = null;
-        button.classList.remove('dragging');
-        resetDragStyle(button);
-
-        if (!wasMoved) return;
-        recentlyDragged = true;
-        window.setTimeout(function () { recentlyDragged = false; }, 180);
-
-        if (isPointInMainZone(event.clientX, event.clientY)) {
+      BP.Bubble.installDrag(button, id, {
+        disabled: function () { return solved; },
+        hitTest: function (x, y) { return isPointInMainZone(x, y); },
+        onDrop: function () {
+          markRecentlyDragged();
           applyRemover(id);
-        } else {
+        },
+        onMiss: function () {
+          markRecentlyDragged();
           setFeedback('', 'Laat de wegneembubble los boven de grote bubble.');
         }
       });
+    }
 
-      button.addEventListener('pointercancel', function () {
-        drag = null;
-        button.classList.remove('dragging');
-        resetDragStyle(button);
-      });
+    function markRecentlyDragged() {
+      recentlyDragged = true;
+      window.setTimeout(function () { recentlyDragged = false; }, 180);
     }
 
     function applyRemover(id) {
@@ -159,7 +128,7 @@
         return;
       }
 
-      history.push({ current: cloneFraction(current), removers: clonePieces(removers) });
+      history.push({ current: cloneFraction(current), removers: BP.Bubble.clonePieces(removers) });
       current = subtraction.result;
       removers[index] = null;
       renderAll();
@@ -240,9 +209,7 @@
     }
 
     function setFeedback(className, text) {
-      if (!feedback) return;
-      feedback.className = 'feedback ' + className;
-      feedback.textContent = text;
+      BP.Bubble.setFeedback(feedback, className, text);
     }
 
     function setUndoState() {
@@ -324,17 +291,7 @@
       denominator: Number(fraction && fraction.denominator)
     };
   }
-
-  function clonePieces(list) {
-    return JSON.parse(JSON.stringify(list || []));
-  }
-
-  function resetDragStyle(button) {
-    button.style.transform = '';
-    button.style.zIndex = '';
-  }
-
-  function isLessThan(a, b) {
+function isLessThan(a, b) {
     if (!a || !b) return false;
     return a.numerator * b.denominator < b.numerator * a.denominator;
   }

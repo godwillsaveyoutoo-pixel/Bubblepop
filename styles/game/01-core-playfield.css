@@ -1,0 +1,206 @@
+.game-hud {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+.question-card {
+  background: rgba(4, 26, 46, 0.32);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-xl);
+  padding: 18px;
+  text-align: center;
+}
+.question-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 7vw, 2.25rem);
+  letter-spacing: -0.04em;
+}
+.bubble-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.bubble-option {
+  min-height: 142px;
+  border: 0;
+  background: transparent;
+  position: relative;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  isolation: isolate;
+}
+.bubble-option img {
+  position: absolute;
+  width: min(132px, 100%);
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 22px rgba(0,0,0,0.25));
+  z-index: -1;
+  transition: transform 160ms ease, filter 160ms ease;
+}
+.bubble-option:active img { transform: scale(0.94); }
+.bubble-option.correct img { filter: drop-shadow(0 0 22px rgba(126,255,178,0.75)); }
+.bubble-option.wrong img { filter: drop-shadow(0 0 22px rgba(255,140,140,0.72)); }
+.fraction {
+  font-weight: 950;
+  line-height: 1;
+  font-size: 1.72rem;
+  color: #062236;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+  display: inline-grid;
+  grid-template-rows: auto 4px auto;
+  align-items: center;
+  gap: 5px;
+  min-width: 46px;
+}
+.fraction-line {
+  height: 4px;
+  border-radius: 99px;
+  background: #062236;
+}
+.feedback {
+  min-height: 46px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  color: var(--muted);
+}
+.feedback.good { color: var(--good); }
+.feedback.bad { color: var(--bad); }
+.bottom-bar {
+  padding-bottom: var(--safe-bottom);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.merge-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.merge-title {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.merge-title .fraction {
+  font-size: 1.5rem;
+  padding: 6px 12px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.76);
+}
+.merge-zone {
+  min-height: 132px;
+  border: 2px dashed rgba(255,255,255,0.45);
+  border-radius: 28px;
+  background: rgba(255,255,255,0.12);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  box-shadow: inset 0 10px 26px rgba(0,0,0,0.12);
+}
+.merge-slot {
+  min-height: 90px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.2);
+  display: grid;
+  place-items: center;
+  font-weight: 950;
+  font-size: 1.6rem;
+  color: rgba(255,255,255,0.76);
+}
+.merge-slot .fraction {
+  color: #062236;
+  background: radial-gradient(circle at 35% 28%, rgba(255,255,255,0.95), rgba(126,231,255,0.68));
+  border-radius: 999px;
+  min-width: 78px;
+  min-height: 78px;
+  place-content: center;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.22);
+}
+.merge-plus {
+  font-weight: 950;
+  font-size: 2rem;
+}
+.merge-sum {
+  min-height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 900;
+}
+.merge-sum .fraction {
+  color: var(--text);
+  font-size: 1.05rem;
+  min-width: 34px;
+}
+.merge-sum .fraction-line {
+  background: var(--text);
+}
+.piece-pool {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.fraction-piece {
+  min-height: 98px;
+  border: 0;
+  background: transparent;
+  position: relative;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  isolation: isolate;
+  touch-action: none;
+  user-select: none;
+}
+.fraction-piece img {
+  position: absolute;
+  width: min(94px, 100%);
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.24));
+  z-index: -1;
+  transition: transform 160ms ease, filter 160ms ease, opacity 160ms ease;
+}
+.fraction-piece .fraction {
+  font-size: 1.22rem;
+  min-width: 34px;
+  gap: 3px;
+  grid-template-rows: auto 3px auto;
+}
+.fraction-piece .fraction-line {
+  height: 3px;
+}
+.fraction-piece:active img,
+.fraction-piece.dragging img {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 24px rgba(126,231,255,0.66));
+}
+.fraction-piece.selected {
+  opacity: 0.45;
+}
+.fraction-piece.selected img {
+  transform: scale(0.86);
+}
+.bottom-bar.single {
+  grid-template-columns: 1fr;
+}
+@media (max-width: 390px) {
+  .piece-pool { gap: 6px; }
+  .fraction-piece { min-height: 86px; }
+  .fraction-piece img { width: min(82px, 100%); }
+  .merge-zone { min-height: 116px; }
+}
+

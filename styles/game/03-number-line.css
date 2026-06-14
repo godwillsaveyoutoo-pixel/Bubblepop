@@ -1,0 +1,208 @@
+/* BubblePop2 v7 — breukenlijn: breuken als echte plaatsen tussen 0 en 1 */
+.number-line-card {
+  min-height: clamp(430px, 62vh, 560px);
+  overflow: hidden;
+}
+.line-title .fraction {
+  font-size: 1.42rem;
+  padding: 6px 12px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.78);
+}
+.number-line-stage {
+  position: relative;
+  min-height: clamp(250px, 38vh, 332px);
+  margin-top: 12px;
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(126,231,255,0.22), rgba(255,255,255,0.09) 42%, rgba(0,0,0,0.05));
+  border: 1px solid rgba(255,255,255,0.2);
+  display: grid;
+  align-content: end;
+  padding: 24px 22px 42px;
+  box-shadow: inset 0 12px 30px rgba(0,0,0,0.12);
+}
+.number-line-track {
+  position: relative;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.78), rgba(126,231,255,0.82));
+  box-shadow: 0 12px 22px rgba(0,0,0,0.2), inset 0 0 0 2px rgba(255,255,255,0.36);
+  cursor: pointer;
+  touch-action: none;
+}
+.line-tick {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 30px;
+  border-radius: 99px;
+  background: rgba(6,34,54,0.62);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.line-tick.major {
+  height: 42px;
+  width: 4px;
+  background: rgba(6,34,54,0.82);
+}
+.line-drop-marker {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.96);
+  border: 4px solid rgba(15,102,130,0.85);
+  box-shadow: 0 0 0 8px rgba(126,231,255,0.16), 0 10px 20px rgba(0,0,0,0.2);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.line-fraction-bubble {
+  position: absolute;
+  left: 50%;
+  top: clamp(34px, 8vh, 58px);
+  width: clamp(92px, 26vw, 124px);
+  min-height: clamp(92px, 26vw, 124px);
+  transform: translateX(-50%);
+  z-index: 4;
+  touch-action: none;
+  cursor: grab;
+}
+.line-fraction-bubble.dragging-line-bubble {
+  cursor: grabbing;
+  transform: translateX(-50%) scale(1.05);
+}
+.line-fraction-bubble .fraction {
+  font-size: clamp(1.35rem, 5vw, 1.78rem);
+}
+.number-line-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  font-weight: 950;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.26);
+}
+.number-line-stage.line-success .line-drop-marker {
+  animation: line-marker-pop 260ms ease;
+  border-color: rgba(57,214,129,0.95);
+  box-shadow: 0 0 0 12px rgba(57,214,129,0.18), 0 10px 22px rgba(0,0,0,0.18);
+}
+.number-line-stage.line-wrong {
+  animation: line-stage-wobble 260ms ease;
+}
+@keyframes line-marker-pop {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  55% { transform: translate(-50%, -50%) scale(1.34); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes line-stage-wobble {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+}
+@media (max-width: 390px) {
+  .number-line-stage { padding-inline: 16px; min-height: 238px; }
+  .line-fraction-bubble { width: 88px; min-height: 88px; }
+  .line-tick { height: 26px; }
+  .line-tick.major { height: 36px; }
+}
+
+/* BubblePop2 v8.1 — bubbles verspreid boven de as, daarna letterlijk op de as */
+.drag-line-card {
+  min-height: clamp(430px, 64vh, 575px);
+}
+.drag-line-stage {
+  display: block;
+  position: relative;
+  min-height: clamp(300px, 43vh, 380px);
+  padding: 18px 18px 62px;
+  overflow: hidden;
+}
+.drag-line-bank {
+  position: absolute;
+  z-index: 5;
+  left: clamp(16px, 5vw, 34px);
+  right: clamp(16px, 5vw, 34px);
+  top: clamp(18px, 4.5vh, 34px);
+  min-height: 104px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: clamp(7px, 2.4vw, 14px);
+  padding: 2px 2px 12px;
+  touch-action: none;
+  pointer-events: none;
+}
+.drag-line-bank .line-drag-bubble {
+  pointer-events: auto;
+}
+.drag-line-track {
+  position: absolute;
+  left: clamp(20px, 7vw, 42px);
+  right: clamp(20px, 7vw, 42px);
+  bottom: 84px;
+}
+.drag-line-stage .number-line-labels {
+  position: absolute;
+  left: clamp(20px, 7vw, 42px);
+  right: clamp(20px, 7vw, 42px);
+  bottom: 36px;
+  margin-top: 0;
+}
+.line-drag-bubble {
+  width: clamp(74px, 19vw, 94px);
+  min-height: clamp(74px, 19vw, 94px);
+  flex: 0 0 auto;
+  z-index: 5;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  will-change: transform, left, top;
+}
+.multi-line-stage .line-drag-bubble {
+  width: clamp(62px, 16vw, 76px);
+  min-height: clamp(62px, 16vw, 76px);
+}
+.line-drag-bubble.dragging-line-bubble {
+  cursor: grabbing;
+  box-shadow: 0 22px 44px rgba(0,0,0,0.25);
+}
+.line-drag-bubble.correct,
+.line-drag-bubble.popped {
+  outline: 3px solid rgba(126,255,178,0.78);
+  box-shadow: 0 0 0 8px rgba(126,255,178,0.14), 0 14px 24px rgba(0,0,0,0.2);
+}
+.line-drag-bubble.wrong {
+  outline: 3px solid rgba(255,140,140,0.72);
+  animation: line-bubble-wrong 260ms ease;
+}
+.line-drag-bubble:disabled {
+  opacity: 1;
+}
+.line-drag-bubble .fraction {
+  font-size: clamp(1.12rem, 4.2vw, 1.46rem);
+}
+.multi-line-stage .line-drag-bubble .fraction {
+  font-size: clamp(0.98rem, 3.8vw, 1.22rem);
+}
+@keyframes line-bubble-wrong {
+  0%, 100% { transform: translate(-50%, -50%) scale(1.02); }
+  25% { transform: translate(calc(-50% - 5px), -50%) scale(1.02); }
+  50% { transform: translate(calc(-50% + 5px), -50%) scale(1.02); }
+  75% { transform: translate(calc(-50% - 3px), -50%) scale(1.02); }
+}
+@media (max-width: 390px) {
+  .drag-line-stage { min-height: 300px; padding-inline: 12px; }
+  .drag-line-bank { top: 18px; min-height: 98px; gap: 5px; }
+  .line-drag-bubble { width: 70px; min-height: 70px; }
+  .multi-line-stage .line-drag-bubble { width: 58px; min-height: 58px; }
+  .line-drag-bubble .fraction { font-size: 1.02rem; }
+  .multi-line-stage .line-drag-bubble .fraction { font-size: 0.92rem; }
+}
+
+

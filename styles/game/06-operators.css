@@ -1,0 +1,194 @@
+/* BubblePop2 v19 — Level 13: maalbubble zonder aparte plopknop */
+.multiply-card .fusion-arena {
+  min-height: clamp(280px, 42vh, 360px);
+}
+.multiply-operator-piece img {
+  filter: drop-shadow(0 13px 23px rgba(0,0,0,0.26)) hue-rotate(260deg) saturate(1.15) brightness(1.05);
+}
+.multiply-operator-piece .multiply-piece-label {
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 1.55rem;
+  font-weight: 1000;
+  color: #071725;
+  background: rgba(255,255,255,0.76);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.7);
+}
+.multiply-fraction-piece .multiply-piece-label {
+  display: grid;
+  place-items: center;
+}
+.multiply-piece-label .fraction {
+  font-size: 1.25rem;
+  min-width: 38px;
+}
+.multiply-note.visible {
+  gap: 7px;
+}
+.multiply-note .multiply-symbol {
+  display: inline-grid;
+  place-items: center;
+  min-width: 42px;
+  min-height: 34px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.94);
+  font-weight: 1000;
+}
+@media (max-height: 720px) {
+  .multiply-operator-piece .multiply-piece-label {
+    width: 50px;
+    height: 50px;
+    font-size: 1.35rem;
+  }
+}
+
+
+/* BubblePop2 v20 — breuk-maalbubbles */
+.multiply-operator-piece .multiply-piece-label .multiply-times {
+  font-size: 1.15rem;
+  line-height: 1;
+  margin-right: 2px;
+}
+.multiply-operator-piece .multiply-piece-label .fraction {
+  font-size: 1.05rem;
+  min-width: 30px;
+}
+.multiply-note .multiply-symbol {
+  gap: 3px;
+}
+.multiply-note .multiply-symbol .fraction {
+  font-size: 1rem;
+  min-width: 28px;
+}
+
+/* BubblePop2 v21 — deelbubble zonder aparte plopknop */
+.divide-card .fusion-arena {
+  min-height: clamp(280px, 42vh, 360px);
+}
+.divide-operator-piece img {
+  filter: drop-shadow(0 13px 23px rgba(0,0,0,0.26)) hue-rotate(115deg) saturate(1.12) brightness(1.05);
+}
+.divide-operator-piece .divide-piece-label {
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 1.55rem;
+  font-weight: 1000;
+  color: #071725;
+  background: rgba(255,255,255,0.76);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.7);
+}
+.divide-fraction-piece .divide-piece-label {
+  display: grid;
+  place-items: center;
+}
+.divide-piece-label .fraction {
+  font-size: 1.25rem;
+  min-width: 38px;
+}
+.divide-note.visible {
+  gap: 7px;
+}
+.divide-note .divide-symbol {
+  display: inline-grid;
+  place-items: center;
+  min-width: 42px;
+  min-height: 34px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.94);
+  font-weight: 1000;
+}
+@media (max-height: 720px) {
+  .divide-operator-piece .divide-piece-label {
+    width: 50px;
+    height: 50px;
+    font-size: 1.35rem;
+  }
+}
+
+
+/* BubblePop2 v22.1 — operator staat vóór de breuk, niet erboven */
+.operator-inline-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  white-space: nowrap;
+  line-height: 1;
+}
+.operator-inline-label .operator-symbol {
+  font-size: 1.35rem;
+  font-weight: 1000;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+.operator-inline-label .operator-number {
+  font-size: 1.35rem;
+  font-weight: 1000;
+  line-height: 1;
+}
+.subtract-inline-label,
+.signed-inline-label {
+  position: relative;
+  z-index: 1;
+}
+.subtract-piece .subtract-inline-label .fraction,
+.signed-piece .signed-inline-label .fraction {
+  font-size: 1.18rem;
+  min-width: 34px;
+}
+.multiply-operator-piece .multiply-piece-label,
+.divide-operator-piece .divide-piece-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 66px;
+  height: 56px;
+  padding: 0 6px;
+}
+.multiply-operator-piece .multiply-piece-label .fraction,
+.divide-operator-piece .divide-piece-label .fraction {
+  font-size: 0.98rem;
+  min-width: 26px;
+  gap: 2px;
+  grid-template-rows: auto 2px auto;
+}
+.multiply-operator-piece .multiply-piece-label .fraction-line,
+.divide-operator-piece .divide-piece-label .fraction-line {
+  height: 2px;
+}
+.multiply-note .multiply-symbol,
+.divide-note .divide-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+@media (max-height: 720px) {
+  .multiply-operator-piece .multiply-piece-label,
+  .divide-operator-piece .divide-piece-label {
+    width: 58px;
+    height: 50px;
+  }
+  .multiply-operator-piece .multiply-piece-label .fraction,
+  .divide-operator-piece .divide-piece-label .fraction {
+    font-size: 0.88rem;
+    min-width: 23px;
+  }
+  .operator-inline-label .operator-symbol,
+  .operator-inline-label .operator-number {
+    font-size: 1.18rem;
+  }
+}
+
+

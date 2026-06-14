@@ -79,3 +79,32 @@ Toegevoegd:
 - Level 19 — Procent van hoeveelheid: losse bubbles kiezen voor bv. 50% van 12.
 - Level 20 — Eindbaas: dynamische mix van fusion, min, maal, deel, procent/komma en hoeveelheid.
 - Game screen ondersteunt nu per-vraag mechanics binnen één level.
+
+
+## v29 code-review cleanup
+
+Deze versie bevat geen nieuwe levels. Focus: stabiliteit en codehygiëne.
+
+- Bug gefixt in `src/screens/game.js`: de Eindbaas-ronde gebruikt nu per vraag de juiste mechanic. In v28 werd in `bindMechanic` nog de level-mechanic gebruikt vóór de vraag was opgehaald.
+- Ongebruikte prototype-mechanics uit de actieve package verwijderd: `tap-choice`, `merge-to-target`, `more-than-one`, `transform-fraction`, `value-form-choice`, `number-line-place`.
+- Ongebruikte helperfuncties in `fractions.js` opgeschoond.
+- Dubbele vraag in `Anders weg` vervangen door een unieke vraag.
+- Alle actieve levels en question-level mechanics zijn opnieuw gevalideerd tegen de scripts in `index.html`.
+
+
+v31 code review cleanup:
+- Removed leftover local wrapper helpers after bubble-utils refactor.
+- Removed unused qMerge helper from fractions content.
+- Re-ran static validation for scripts, references, active mechanics, renders, and level data.
+
+
+## v32 mobile/fullscreen polish
+
+- Fullscreen-knop toegevoegd in de game-HUD.
+- `bubble-utils.js` wordt nu expliciet geladen in `index.html`.
+- `game.css` importeert opnieuw alle opgesplitste game-CSS-bestanden plus een nieuwe mobile-polish laag.
+- Game screen gebruikt nu class `game-screen`, zodat de spelmodus op kleine schermen bijna edge-to-edge kan werken.
+- Vroege breukvisuals, fill-grid en equivalentie-opties krijgen striktere max-width/overflow regels.
+- Level 1 antwoordbubbles en getallenas-bubbles zijn rond gemaakt.
+- Nummerkeuzes in teller/noemer krijgen op mobiel 2 kolommen i.p.v. een krappe rij.
+- Getallenas krijgt meer horizontale ruimte binnen het spelvenster.

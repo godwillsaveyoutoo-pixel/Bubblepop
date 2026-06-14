@@ -1,0 +1,350 @@
+/* BubblePop2 v15 — Level 11: Meer dan één */
+.more-card {
+  min-height: clamp(438px, 64vh, 560px);
+  justify-content: start;
+  overflow: hidden;
+}
+.more-arena {
+  min-height: clamp(286px, 42vh, 374px);
+  display: grid;
+  grid-template-rows: minmax(132px, 1fr) minmax(118px, auto);
+  gap: 14px;
+  align-items: stretch;
+}
+.more-build-zone {
+  min-height: 138px;
+  border: 2px dashed rgba(255,255,255,0.42);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 48% 34%, rgba(126,231,255,0.19), rgba(255,255,255,0.08) 48%, rgba(0,0,0,0.05));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  box-shadow: inset 0 12px 28px rgba(0,0,0,0.12);
+}
+.more-build-empty {
+  color: rgba(255,255,255,0.78);
+  font-weight: 850;
+  letter-spacing: 0.01em;
+}
+.more-built-bubble {
+  width: clamp(78px, 20vw, 112px);
+  min-height: clamp(78px, 20vw, 112px);
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  flex: 0 0 auto;
+}
+.more-built-bubble img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: -1;
+  filter: drop-shadow(0 14px 22px rgba(0,0,0,0.24));
+}
+.more-built-bubble.rest img {
+  opacity: 0.92;
+}
+.more-built-bubble .fraction {
+  font-size: 1.26rem;
+  font-weight: 950;
+  color: rgba(7, 35, 58, 0.92);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.48);
+}
+.more-built-bubble .fraction-line { height: 3px; }
+.more-bubble-caption {
+  position: absolute;
+  bottom: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.62);
+  color: rgba(7, 35, 58, 0.82);
+  font-size: 0.68rem;
+  font-weight: 950;
+}
+.more-built-bubble.just-built {
+  animation: bp-more-pop 390ms ease;
+}
+.more-piece-pool {
+  min-height: 116px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  align-items: stretch;
+}
+.more-piece-slot {
+  min-height: 104px;
+  display: grid;
+  place-items: center;
+}
+.more-piece-slot.empty {
+  border-radius: 22px;
+  background: rgba(255,255,255,0.05);
+}
+.more-piece {
+  width: 100%;
+  min-height: 100px;
+  border: 0;
+  background: transparent;
+  position: relative;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  isolation: isolate;
+}
+.more-piece img {
+  position: absolute;
+  width: min(88px, 94%);
+  aspect-ratio: 1;
+  object-fit: contain;
+  z-index: -1;
+  filter: drop-shadow(0 12px 18px rgba(0,0,0,0.23));
+}
+.more-piece .fraction {
+  font-size: 1.08rem;
+  font-weight: 950;
+  color: rgba(7, 35, 58, 0.92);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.48);
+}
+.more-piece .fraction-line { height: 3px; }
+.more-piece:active img,
+.more-piece.dragging img {
+  transform: scale(1.08);
+}
+@keyframes bp-more-pop {
+  0% { transform: scale(0.84); filter: brightness(1); }
+  48% { transform: scale(1.13); filter: brightness(1.16); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+@media (max-height: 720px) {
+  .more-card { min-height: 418px; gap: 10px; }
+  .more-arena { min-height: 258px; grid-template-rows: 124px 112px; gap: 10px; }
+  .more-build-zone { min-height: 118px; padding: 8px; gap: 6px; }
+  .more-built-bubble { width: 78px; min-height: 78px; }
+  .more-built-bubble .fraction { font-size: 1.05rem; }
+  .more-piece-pool { min-height: 104px; gap: 6px; }
+  .more-piece-slot { min-height: 92px; }
+  .more-piece { min-height: 90px; }
+  .more-piece img { width: min(78px, 94%); }
+  .more-piece .fraction { font-size: 0.96rem; }
+}
+
+/* BubblePop2 v16 — Meer dan één gebruikt opnieuw fusion-taal */
+.signed-card .fusion-arena {
+  min-height: clamp(280px, 42vh, 360px);
+}
+.signed-piece.negative-piece img {
+  filter: drop-shadow(0 13px 23px rgba(0,0,0,0.26)) hue-rotate(112deg) saturate(0.72) brightness(0.9);
+  opacity: 0.92;
+}
+.signed-piece.negative-piece .fraction {
+  color: #071725;
+}
+.signed-piece .minus-badge {
+  top: 8px;
+  right: 14px;
+  width: 25px;
+  height: 25px;
+  font-size: 1.18rem;
+}
+.signed-note.visible {
+  gap: 7px;
+}
+.signed-inline-fraction {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.signed-inline-fraction.negative {
+  color: #d6f7ff;
+}
+.signed-inline-fraction .fraction {
+  font-size: 0.88rem;
+  padding: 3px 7px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.74);
+  color: #071725;
+}
+.signed-small-note {
+  width: 100%;
+  opacity: 0.72;
+  font-size: 0.72rem;
+}
+
+/* BubblePop2 v18.1 — Level 12: losse bubbles + bevestigen met doelbubble */
+.quantity-card {
+  min-height: clamp(438px, 64vh, 560px);
+}
+.quantity-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.quantity-title .fraction {
+  font-size: 1.45rem;
+  padding: 6px 12px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.76);
+}
+.quantity-of {
+  font-size: 0.82em;
+  color: rgba(255,255,255,0.88);
+}
+
+.quantity-target-bubble {
+  width: min(230px, 68vw);
+  min-height: 84px;
+  margin: 8px auto 14px;
+  border: 1px solid rgba(255,255,255,0.46);
+  border-radius: 999px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  color: #071725;
+  background:
+    radial-gradient(circle at 34% 22%, rgba(255,255,255,1) 0 12%, rgba(255,242,166,0.98) 15% 34%, rgba(126,231,255,0.92) 58%, rgba(45,166,218,0.92) 92%);
+  box-shadow: 0 18px 32px rgba(0,0,0,0.22), inset 0 2px 0 rgba(255,255,255,0.85);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+}
+.quantity-target-bubble:active {
+  transform: scale(0.97);
+}
+.quantity-target-main {
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  font-size: 1rem;
+}
+.quantity-target-fraction {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 900;
+}
+.quantity-target-fraction .fraction {
+  font-size: 1.04rem;
+  padding: 3px 8px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.68);
+}
+.quantity-target-of {
+  font-size: 0.86rem;
+  opacity: 0.8;
+}
+.quantity-target-ready {
+  animation: bp-quantity-target-pulse 980ms ease-in-out infinite;
+}
+.quantity-target-wrong {
+  filter: hue-rotate(145deg) saturate(1.18);
+  animation: bp-shake-soft 260ms ease;
+}
+.quantity-target-correct {
+  filter: saturate(1.25) brightness(1.08);
+  box-shadow: 0 0 34px rgba(126,255,178,0.36), 0 18px 32px rgba(0,0,0,0.22), inset 0 2px 0 rgba(255,255,255,0.85);
+}
+.quantity-stage {
+  min-height: clamp(246px, 39vh, 340px);
+  padding: 16px;
+  border-radius: 32px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: inset 0 14px 30px rgba(0,0,0,0.12);
+}
+.loose-quantity-stage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.quantity-pearl {
+  width: clamp(42px, 10.5vw, 56px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255,255,255,0.42);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 32% 24%, rgba(255,255,255,1) 0 12%, rgba(209,249,255,0.98) 14% 30%, rgba(126,231,255,0.92) 44%, rgba(45,166,218,0.9) 78%);
+  box-shadow: 0 10px 18px rgba(0,0,0,0.17), inset 0 1px 0 rgba(255,255,255,0.9);
+  position: relative;
+  transition: transform 130ms ease, filter 130ms ease, box-shadow 130ms ease, outline-color 130ms ease;
+  touch-action: manipulation;
+}
+.quantity-pearl:nth-child(3n) { transform: translateY(-5px); }
+.quantity-pearl:nth-child(4n) { transform: translateY(4px); }
+.quantity-pearl:nth-child(5n) { transform: translateY(-2px) rotate(-3deg); }
+.quantity-pearl:active {
+  transform: scale(0.94);
+}
+.quantity-pearl.selected {
+  outline: 3px solid rgba(126,255,178,0.82);
+  filter: saturate(1.2) brightness(1.08);
+  box-shadow: 0 0 26px rgba(126,255,178,0.34), 0 10px 18px rgba(0,0,0,0.17), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.quantity-pearl.just-selected {
+  animation: bp-quantity-pop 360ms ease;
+}
+.quantity-pearl-shine {
+  position: absolute;
+  width: 28%;
+  height: 28%;
+  border-radius: 999px;
+  left: 24%;
+  top: 18%;
+  background: rgba(255,255,255,0.72);
+  pointer-events: none;
+}
+.quantity-success {
+  animation: bp-fill-correct 420ms ease;
+}
+
+.quantity-too-few,
+.quantity-too-many {
+  animation: bp-shake-soft 260ms ease;
+}
+.quantity-too-few .quantity-pearl:not(.selected) {
+  filter: brightness(1.08);
+}
+.quantity-too-many .quantity-pearl.selected {
+  outline-color: rgba(255,164,126,0.88);
+  box-shadow: 0 0 22px rgba(255,164,126,0.28), 0 10px 18px rgba(0,0,0,0.17), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.quantity-note {
+  min-height: 42px;
+}
+@keyframes bp-quantity-pop {
+  0% { transform: scale(0.94); }
+  55% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+@keyframes bp-quantity-target-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.035); }
+}
+@keyframes bp-shake-soft {
+  0%, 100% { transform: translateX(0); }
+  30% { transform: translateX(-5px); }
+  65% { transform: translateX(5px); }
+}
+@media (max-width: 390px) {
+  .quantity-stage { gap: 8px; padding: 12px; min-height: 224px; }
+  .quantity-target-bubble { min-height: 72px; margin-bottom: 10px; }
+  .quantity-target-main { font-size: 0.9rem; }
+  .quantity-pearl { width: clamp(36px, 10vw, 46px); }
+  .quantity-note { min-height: 34px; }
+}
+
+
+

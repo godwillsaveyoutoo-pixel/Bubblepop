@@ -31,13 +31,14 @@
           return missingMechanicHtml(setup.level, question);
         }
         return '' +
-          '<main class="screen">' +
+          '<main class="screen game-screen">' +
             '<div class="screen-bg" style="background-image:url(' + BP.AssetManager.resolve(setup.pack.backgroundAsset || "skill.fractions.bg.game") + ')"></div>' +
             '<div class="screen-inner">' +
               '<header class="game-hud">' +
                 '<button class="icon-button" data-action="levels">←</button>' +
                 '<span class="pill" data-hud-score>Score ' + roundState.score + ' · Streak ' + roundState.streak + '</span>' +
                 '<span class="pill">' + (roundState.index + 1) + '/' + roundState.total + '</span>' +
+                '<button class="icon-button fullscreen-button" data-action="fullscreen" type="button" aria-label="Fullscreen">⛶</button>' +
               '</header>' +
               '<div id="mechanic-root">' + mechanic.render(question, roundState) + '</div>' +
               '<div class="spacer"></div>' +
@@ -63,7 +64,7 @@
   function missingMechanicHtml(level, question) {
     var mechanicName = (question && question.mechanic) || (level && level.mechanic) || "onbekend";
     return '' +
-      '<main class="screen">' +
+      '<main class="screen game-screen">' +
         '<div class="screen-inner">' +
           '<header class="game-hud">' +
             '<button class="icon-button" data-action="levels">←</button>' +
@@ -105,13 +106,16 @@
     root.querySelector('[data-action="home"]').addEventListener('click', function () {
       BP.Router.go('home');
     });
+    if (BP.Fullscreen) {
+      BP.Fullscreen.bindButton(root.querySelector('[data-action="fullscreen"]'));
+    }
   }
 
   function bindMechanic(root, round, setup, makeHtml) {
     var mechanicRoot = root.querySelector('#mechanic-root');
+    var question = round.getQuestion();
     var mechanic = resolveMechanic(setup.level, question);
     if (!mechanic || typeof mechanic.mount !== "function") return;
-    var question = round.getQuestion();
     mechanic.mount(mechanicRoot, function (payload) {
       var answer = round.answer(payload);
       if (answer.locked) return;
