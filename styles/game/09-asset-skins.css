@@ -383,3 +383,75 @@
   .visual-choice-bubble .choice-bubble-content { width: 63%; height: 63%; }
   .target-visual-bubble .choice-bubble-content { width: 66%; height: 66%; }
 }
+
+
+/* v43 — keep circle visuals contained inside PNG bubbles */
+.visual-choice-bubble .visual-circle-grid,
+.target-visual-bubble .visual-circle-grid {
+  width: 76%;
+  height: 76%;
+  gap: 3px;
+}
+@media (max-width: 390px) {
+  .visual-choice-bubble .visual-circle-grid,
+  .target-visual-bubble .visual-circle-grid {
+    width: 72%;
+    height: 72%;
+  }
+}
+
+
+/* v44 — cleanup: remove old generic bubble layer behind PNG bubbles */
+.png-choice-bubble,
+.visual-choice-bubble,
+.target-visual-bubble,
+.representation-option.choice-bubble.png-choice-bubble,
+.number-option.choice-bubble.png-choice-bubble,
+.line-drag-bubble.choice-bubble.png-choice-bubble,
+.line-fraction-bubble.choice-bubble.png-choice-bubble {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.png-choice-bubble::after,
+.visual-choice-bubble::after,
+.target-visual-bubble::after,
+.representation-option.choice-bubble.png-choice-bubble::after,
+.number-option.choice-bubble.png-choice-bubble::after,
+.line-drag-bubble.choice-bubble.png-choice-bubble::after,
+.line-fraction-bubble.choice-bubble.png-choice-bubble::after {
+  content: none !important;
+  display: none !important;
+}
+
+.png-choice-bubble .choice-bubble-shine,
+.visual-choice-bubble .choice-bubble-shine,
+.target-visual-bubble .choice-bubble-shine,
+.representation-option.choice-bubble.png-choice-bubble .choice-bubble-shine,
+.number-option.choice-bubble.png-choice-bubble .choice-bubble-shine,
+.line-drag-bubble.choice-bubble.png-choice-bubble .choice-bubble-shine,
+.line-fraction-bubble.choice-bubble.png-choice-bubble .choice-bubble-shine {
+  display: none !important;
+}
+
+.png-choice-bubble .bubble-skin-layer,
+.visual-choice-bubble .bubble-skin-layer,
+.target-visual-bubble .bubble-skin-layer,
+.representation-option.choice-bubble.png-choice-bubble .bubble-skin-layer,
+.number-option.choice-bubble.png-choice-bubble .bubble-skin-layer,
+.line-drag-bubble.choice-bubble.png-choice-bubble .bubble-skin-layer,
+.line-fraction-bubble.choice-bubble.png-choice-bubble .bubble-skin-layer {
+  z-index: 0;
+}
+
+.png-choice-bubble .choice-bubble-content,
+.visual-choice-bubble .choice-bubble-content,
+.target-visual-bubble .choice-bubble-content,
+.representation-option.choice-bubble.png-choice-bubble .choice-bubble-content,
+.number-option.choice-bubble.png-choice-bubble .choice-bubble-content,
+.line-drag-bubble.choice-bubble.png-choice-bubble .choice-bubble-content,
+.line-fraction-bubble.choice-bubble.png-choice-bubble .choice-bubble-content {
+  z-index: 1;
+}

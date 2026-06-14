@@ -366,3 +366,12 @@
   gap: 12px;
   place-items: center;
 }
+
+
+/* v43 — mobile circle fit */
+@media (max-width: 520px) {
+  .visual-circle-grid { width: 80%; height: 80%; gap: 3px; }
+}
+@media (max-width: 390px) {
+  .visual-circle-grid { width: 78%; height: 78%; gap: 3px; }
+}

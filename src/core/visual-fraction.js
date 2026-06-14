@@ -17,7 +17,7 @@
 
     return '' +
       '<div class="fraction-visual ' + BP.Fraction.escapeHtml(kind) + '-visual' + large + '" aria-label="breuk ' + BP.Fraction.escapeHtml(n + '/' + d) + '">' +
-        '<div class="visual-piece-wrap visual-' + BP.Fraction.escapeHtml(kind) + '" style="--parts:' + d + '; --cols:' + columnsFor(d) + '; --filled:' + n + ';">' + pieces(d, n, false) + '</div>' +
+        wrapHtml(kind, d, n, false) +
         caption +
       '</div>';
   }
@@ -30,8 +30,20 @@
     var large = options.large ? ' large' : '';
     return '' +
       '<div class="fraction-visual ' + BP.Fraction.escapeHtml(kind) + '-visual interactive-visual' + large + '" aria-label="vul breuk met ' + d + ' delen">' +
-        '<div class="visual-piece-wrap visual-' + BP.Fraction.escapeHtml(kind) + '" style="--parts:' + d + '; --cols:' + columnsFor(d) + '; --filled:0;">' + pieces(d, 0, true) + '</div>' +
+        wrapHtml(kind, d, 0, true) +
       '</div>';
+  }
+
+
+  function wrapHtml(kind, d, n, interactive) {
+    var attrs = ' style="--parts:' + d + '; --cols:' + columnsFor(d) + '; --filled:' + n + ';"';
+    if (kind === 'circle') {
+      return '' +
+        '<div class="visual-piece-wrap visual-circle"' + attrs + '>' +
+          '<div class="visual-circle-grid">' + pieces(d, n, interactive) + '</div>' +
+        '</div>';
+    }
+    return '<div class="visual-piece-wrap visual-' + BP.Fraction.escapeHtml(kind) + '"' + attrs + '>' + pieces(d, n, interactive) + '</div>';
   }
 
   function columnsFor(d) {

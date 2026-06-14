@@ -376,10 +376,24 @@
   width: 136px;
   height: 136px;
   border-radius: 999px;
-  grid-template-columns: repeat(var(--parts), minmax(0, 1fr));
+  display: grid;
+  place-items: center;
+  padding: 0;
 }
-.visual-circle .visual-piece {
+.visual-circle-grid {
+  width: 82%;
+  height: 82%;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  align-content: stretch;
+  justify-content: stretch;
+  gap: 4px;
+}
+.visual-circle .visual-piece,
+.visual-circle-grid .visual-piece {
   border-radius: 999px;
+  min-width: 0;
+  min-height: 0;
 }
 .visual-piece.filled,
 .visual-piece.filled-by-player {
@@ -536,7 +550,6 @@
   .equivalent-option { min-height: 112px; }
   .equivalent-target { min-height: 112px; }
 }
-.visual-circle { grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); }
 
 /* BubblePop2 v5.2 hotfix — Maak de breuk: grote, echte knoppen i.p.v. kleine spans */
 .fill-stage {
@@ -778,3 +791,9 @@
   .choice-bubble-shine { width: 28px; height: 18px; }
 }
 
+
+
+/* v43 — circle visual fit */
+.visual-circle .visual-piece-wrap, .visual-circle-grid .visual-piece-wrap { min-width: 0; }
+.visual-circle-grid > .visual-piece { box-sizing: border-box; }
+.fraction-visual.circle-visual { align-items: center; }

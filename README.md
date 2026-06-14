@@ -196,3 +196,16 @@ Belangrijke regel: PNG’s mogen geen breuken, tekst of getallen bevatten. De PN
 - breuken in bubbles beter gecentreerd
 - zelfde-waarde visualisaties verder verkleind zodat ze beter in ronde bubbles passen
 - getallenas-stage en titel subtiel gepolijst
+
+
+## v43 — cirkelvisualisatie beter passend
+- circle fraction visuals hebben nu een inner grid zodat segmenten niet meer tegen de rand van de cirkel worden afgesneden
+- werkt zowel in gewone oefening als in bubble/choice-context
+- speciaal geschaald voor kleine smartphones
+
+
+## v44 — PNG cleanup hotfix
+- oude generische bubblelaag achter PNG-bubbles verwijderd
+- pseudo-highlight (::after) verwijderd voor PNG-bubbles
+- oude shine-layer verborgen voor PNG-bubbles
+- enkel PNG bubble + inhoud + selectiering blijft zichtbaar
