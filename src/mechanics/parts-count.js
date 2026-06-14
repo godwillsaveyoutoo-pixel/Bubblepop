@@ -18,7 +18,7 @@
     return '' +
       '<section class="question-card parts-card coherent-card bubblepop-card">' +
         '<h2 class="question-title">' + BP.Fraction.escapeHtml(BP.I18n.text(question.prompt)) + '</h2>' +
-        '<div class="bubble-visual-wrap">' + BP.VisualFraction.html(question.visual, { caption: false, large: true }) + '</div>' +
+        '<div class="bubble-visual-wrap"><div class="prompt-visual-bubble choice-bubble png-choice-bubble target-visual-bubble">' + BP.Bubble.skinLayer(null, 'normal') + '<span class="choice-bubble-content">' + BP.VisualFraction.html(question.visual, { caption: false, large: true }) + '</span></div></div>' +
         '<div class="number-choice-grid number-bubble-grid">' + question.choices.map(function (choice, index) {
           var answerState = "";
           if (roundState.lastAnswer && roundState.lastAnswer.choiceIndex === index) {

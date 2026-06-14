@@ -209,3 +209,10 @@ Belangrijke regel: PNG’s mogen geen breuken, tekst of getallen bevatten. De PN
 - pseudo-highlight (::after) verwijderd voor PNG-bubbles
 - oude shine-layer verborgen voor PNG-bubbles
 - enkel PNG bubble + inhoud + selectiering blijft zichtbaar
+
+
+## v45 — opgavevisuals als echte bubbles
+- de opgavevisual in level 1/visual prompt oefeningen zit nu ook in een echte PNG bubble
+- visual wordt geschaald binnen de bubble
+- circle/bar visuals passen beter in de opgavebubble
+- dit vervangt de losse platte visual-card bovenaan
