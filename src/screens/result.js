@@ -9,7 +9,7 @@
         return { html: '<main class="screen"><div class="screen-inner"><h1>Nog geen resultaat</h1></div></main>' };
       }
       var stars = calculateStars(result.correct, result.total, result.maxStreak);
-      var nextLevel = getNextLevel(result.skillId, result.levelId);
+      var nextLevel = BP.Progress.getNextLevel(result.skillId, result.levelId);
       var primaryLabel = nextLevel ? '▶ Volgende level' : '▶ Nog een ronde';
       var primaryAction = nextLevel ? 'next-level' : 'again';
       var helperText = nextLevel ? 'Klaar? Ga door naar: ' + nextLevel.title : 'Je zit aan het einde van de huidige reeks.';
@@ -55,14 +55,6 @@
       };
     }
   };
-
-  function getNextLevel(skillId, levelId) {
-    var pack = BP.CONTENT[skillId] || BP.CONTENT.fractions;
-    var levels = (pack.levels || []).filter(function (level) { return !level.locked; });
-    var currentIndex = levels.findIndex(function (level) { return level.id === levelId; });
-    if (currentIndex < 0) return levels[0] || null;
-    return levels[currentIndex + 1] || null;
-  }
 
   function calculateStars(correct, total, maxStreak) {
     var ratio = total ? correct / total : 0;

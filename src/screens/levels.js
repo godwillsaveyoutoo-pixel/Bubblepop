@@ -29,7 +29,7 @@
             button.addEventListener('click', function () {
               var levelId = button.getAttribute('data-level-id');
               var level = pack.levels.find(function (item) { return item.id === levelId; });
-              if (!level || level.locked) return;
+              if (!level || !BP.Progress.isLevelUnlocked(pack.id, level.id)) return;
               BP.Router.go('game', { skillId: pack.id, levelId: levelId });
             });
           });
@@ -38,14 +38,19 @@
 
       function levelCard(level, index) {
         var p = BP.Progress.getLevelProgress(level.id);
+        var unlocked = BP.Progress.isLevelUnlocked(pack.id, level.id);
+        var completed = !!p.completed;
+        var status = unlocked ? (p.stars ? '★'.repeat(p.stars) : (completed ? '✓' : '▶')) : '🔒';
+        var meta = unlocked ? level.description : 'Speel eerst level ' + index + ' uit.';
+        var classes = 'level-card' + (unlocked ? '' : ' is-locked') + (completed ? ' is-completed' : '');
         return '' +
-          '<button class="level-card" data-level-id="' + level.id + '">' +
+          '<button class="' + classes + '" data-level-id="' + level.id + '"' + (unlocked ? '' : ' disabled aria-disabled="true"') + '>' +
             '<span class="skill-icon"><strong>' + (index + 1) + '</strong></span>' +
             '<span>' +
               '<span class="level-title">' + level.title + '</span>' +
-              '<span class="level-meta">' + level.description + '</span>' +
+              '<span class="level-meta">' + meta + '</span>' +
             '</span>' +
-            '<span class="pill">' + (level.locked ? '🔒' : (p.stars ? '★'.repeat(p.stars) : '▶')) + '</span>' +
+            '<span class="pill">' + status + '</span>' +
           '</button>';
       }
     }

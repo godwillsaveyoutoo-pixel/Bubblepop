@@ -95,3 +95,16 @@
   letter-spacing: -0.08em;
   line-height: 0.9;
 }
+
+.level-card.is-locked {
+  opacity: 0.54;
+  filter: grayscale(0.25);
+  cursor: not-allowed;
+}
+.level-card.is-locked .skill-icon,
+.level-card.is-locked .pill {
+  background: rgba(255,255,255,0.08);
+}
+.level-card.is-completed {
+  border-color: rgba(143,255,216,0.38);
+}

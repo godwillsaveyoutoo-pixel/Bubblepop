@@ -5,7 +5,7 @@
   BP.Screens.game = {
     render: function (params) {
       var setup = resolveLevel(params.skillId, params.levelId);
-      if (!setup.level || setup.level.locked) {
+      if (!setup.level || !BP.Progress.isLevelUnlocked(setup.pack.id, setup.level.id)) {
         return {
           html: '<main class="screen"><div class="screen-inner"><h1>Level niet beschikbaar</h1><button class="primary-button" data-action="home">Terug</button></div></main>',
           mount: function (root) {

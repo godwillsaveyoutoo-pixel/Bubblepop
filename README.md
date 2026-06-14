@@ -121,3 +121,8 @@ De fullscreenknop staat nu ook zichtbaar in de onderbalk als `⛶ Volledig scher
 - Fullscreen werkt nu via dubbel tikken/dubbel klikken op menu-schermen: Home, Skills, Levels en Resultaat.
 - Dubbel tikken op gewone knoppen wordt genegeerd, zodat navigatie niet per ongeluk fullscreen activeert.
 - In het spel zelf staat geen extra fullscreenknop meer.
+
+
+## v33 progress locking
+
+Levels are now dynamically locked: level 1 is open, and each next level unlocks only after the previous level has been completed. The level screen, direct game routing, result screen next-level button, and home continue button all use the same central Progress rules.

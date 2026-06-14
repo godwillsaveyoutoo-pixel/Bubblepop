@@ -7,6 +7,7 @@
       var state = BP.Store.get();
       var skill = findSkill(state.progress.currentSkillId) || BP.CONTENT.skills[0];
       var progress = BP.Progress.getSkillProgress(skill.id);
+      var continueLevel = BP.Progress.getContinueLevel(skill.id);
 
       return {
         html: '' +
@@ -24,7 +25,7 @@
               '</div>' +
               '<section class="card">' +
                 '<strong>Speel verder</strong>' +
-                '<p class="subtitle">' + skill.title + ' · ' + progress.percent + '% · ' + progress.stars + ' sterren</p>' +
+                '<p class="subtitle">' + skill.title + ' · ' + progress.percent + '% · ' + progress.stars + ' sterren · ' + progress.unlocked + '/' + progress.total + ' open</p>' +
                 '<div class="progress-track"><div class="progress-fill" style="width:' + progress.percent + '%"></div></div>' +
               '</section>' +
               '<button class="primary-button" data-action="continue">▶ Speel verder</button>' +
@@ -36,7 +37,7 @@
           '</main>',
         mount: function (root) {
           root.querySelector('[data-action="continue"]').addEventListener('click', function () {
-            BP.Router.go('game', { skillId: skill.id, levelId: state.progress.currentLevelId || skill.firstLevelId });
+            BP.Router.go('game', { skillId: skill.id, levelId: continueLevel ? continueLevel.id : skill.firstLevelId });
           });
           root.querySelector('[data-action="skills"]').addEventListener('click', function () {
             BP.Router.go('skills');
