@@ -244,3 +244,9 @@ Belangrijke regel: PNG’s mogen geen breuken, tekst of getallen bevatten. De PN
 - breuk staat opnieuw netjes gecentreerd in de bubble
 - breukstreep is weer duidelijk zichtbaar
 - de extra zin "Tik precies ... Geen controleknop nodig." is verwijderd
+
+
+## v50 — equivalent value bubble fit
+- in het spel "zelfde waarde" zijn de visuals binnen de oplossingsbubbels kleiner en beter gecentreerd
+- de breuklabels/captions onderaan in de bubbles zijn donkerder en veel leesbaarder
+- feedbacktekst onder het spel heeft meer contrast
