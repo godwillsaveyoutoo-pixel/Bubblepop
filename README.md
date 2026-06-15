@@ -250,3 +250,10 @@ Belangrijke regel: PNG’s mogen geen breuken, tekst of getallen bevatten. De PN
 - in het spel "zelfde waarde" zijn de visuals binnen de oplossingsbubbels kleiner en beter gecentreerd
 - de breuklabels/captions onderaan in de bubbles zijn donkerder en veel leesbaarder
 - feedbacktekst onder het spel heeft meer contrast
+
+
+## v51 — same value visual clarity
+- in het spel "zelfde waarde" zijn de visuele stukjes bovenaan bewust groter gemaakt
+- vooral /4 en /6 blijven nu veel duidelijker leesbaar
+- donkerdere tray achter de stukjes voor meer contrast
+- circle/bar-visuals krijgen meer ruimte binnen de bubble
